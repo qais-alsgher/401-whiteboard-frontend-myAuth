@@ -6,7 +6,7 @@ import { UserNameContext } from '../Helper/Context';
 import NotAutToDelete from './NotAutToDelete';
 
 function CommentForPost(props) {
-    const { userName, setUserName } = useContext(UserNameContext);
+    const { userName } = useContext(UserNameContext);
     const [showNotAD, setShowNotAD] = useState(false);
     const [owner, setOwner] = useState("");
     const [showUpdate, setShowUpdate] = useState(false);

@@ -1,7 +1,7 @@
 import { React, useContext } from 'react';
 import { UserNameContext } from '../Helper/Context';
 function LogoutButton() {
-    const { userName, setUserName } = useContext(UserNameContext);
+    const { setUserName } = useContext(UserNameContext);
 
     const handleLogOut = () => {
         setUserName(false);

@@ -5,7 +5,7 @@ import { UserNameContext } from '../Helper/Context';
 import NotAutToDelete from './NotAutToDelete';
 
 function Post(props) {
-    const { userName, setUserName } = useContext(UserNameContext);
+    const { userName } = useContext(UserNameContext);
     const [showNotAD, setShowNotAD] = useState(false);
     const [owner, setOwner] = useState("")
     const handledelete = async (postAouthr, id) => {
