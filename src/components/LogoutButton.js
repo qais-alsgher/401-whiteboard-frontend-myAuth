@@ -1,11 +1,14 @@
-import React from 'react';
-import { useAuth0 } from "@auth0/auth0-react";
-
+import { React, useContext } from 'react';
+import { UserNameContext } from '../Helper/Context';
 function LogoutButton() {
-    const { logout } = useAuth0();
+    const { userName, setUserName } = useContext(UserNameContext);
 
+    const handleLogOut = () => {
+        setUserName(false);
+        window.location.reload();
+    }
     return (
-        <button className='btn  rounded-pill login' onClick={() => logout({ returnTo: window.location.origin })}>
+        <button className='btn  rounded-pill login' onClick={() => { handleLogOut() }}>
             Log Out
         </button>
     );

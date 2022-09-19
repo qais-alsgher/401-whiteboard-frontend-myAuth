@@ -1,12 +1,12 @@
-import { React, useState } from 'react';
+import { React, useState, useContext } from 'react';
 import { BsArrowReturnRight } from "react-icons/bs";
 import { MdEdit, MdDelete, MdSend } from "react-icons/md";
 import axios from 'axios';
-import { useAuth0 } from "@auth0/auth0-react";
+import { UserNameContext } from '../Helper/Context';
 import NotAutToDelete from './NotAutToDelete';
 
 function CommentForPost(props) {
-    const { user } = useAuth0();
+    const { userName, setUserName } = useContext(UserNameContext);
     const [showNotAD, setShowNotAD] = useState(false);
     const [owner, setOwner] = useState("");
     const [showUpdate, setShowUpdate] = useState(false);
@@ -15,7 +15,7 @@ function CommentForPost(props) {
 
     // to delte comment
     const handleDlete = async (id, commentAuther) => {
-        if (user.name === commentAuther) {
+        if (userName === commentAuther) {
             await axios.delete(`https://message-postgres.herokuapp.com/comment/${id}`);
             props.getPostComment();
         } else {
@@ -34,7 +34,7 @@ function CommentForPost(props) {
 
 
     const handleShowUpdate = (id, commentAuther) => {
-        if (user.name === commentAuther) {
+        if (userName === commentAuther) {
             setShowUpdate(true);
             setUpdateId(id);
         } else {
