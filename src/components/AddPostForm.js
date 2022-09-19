@@ -6,7 +6,7 @@ import { UserNameContext } from '../Helper/Context';
 import axios from 'axios';
 
 function AddPostForm(props) {
-    const { userName, setUserName } = useContext(UserNameContext);
+    const { userName } = useContext(UserNameContext);
 
     const handleCreatePost = async (e) => {
         e.preventDefault();
