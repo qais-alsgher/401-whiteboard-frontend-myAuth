@@ -9,7 +9,7 @@ import AddPostForm from './components/AddPostForm';
 import PageNotAuth from './components/PageNotAuth';
 import SolveProblems from './image/SolveProblems.jpg';
 function Header(props) {
-    const { loggedIn, setLoggedIn } = useContext(LoginContext);
+    const { loggedIn } = useContext(LoginContext);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);

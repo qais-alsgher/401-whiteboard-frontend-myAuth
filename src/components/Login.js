@@ -8,8 +8,8 @@ import Singup from './Singup';
 import { LoginContext, UserNameContext } from '../Helper/Context';
 function Login() {
     const [show, setShow] = useState(false);
-    const { loggedIn, setLoggedIn } = useContext(LoginContext);
-    const { userName, setUserName } = useContext(UserNameContext);
+    const { setLoggedIn } = useContext(LoginContext);
+    const { setUserName } = useContext(UserNameContext);
 
     const handleLogin = async (e) => {
         e.preventDefault();

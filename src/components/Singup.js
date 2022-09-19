@@ -7,8 +7,8 @@ import { LoginContext, UserNameContext } from '../Helper/Context';
 
 function Singup(props) {
     const [show, setShow] = useState(false);
-    const { loggedIn, setLoggedIn } = useContext(LoginContext);
-    const { userName, setUserName } = useContext(UserNameContext);
+    const { setLoggedIn } = useContext(LoginContext);
+    const { setUserName } = useContext(UserNameContext);
 
     const handSingup = async (e) => {
         e.preventDefault();
@@ -22,7 +22,6 @@ function Singup(props) {
             setLoggedIn(true);
             setUserName(e.target.name.value);
         }).catch(e => console.log(e))
-        // habndleCloseAll();
 
     }
 
@@ -31,10 +30,6 @@ function Singup(props) {
     }
     const handleClose = () => {
         setShow(false);
-    }
-
-    const handleshowLoginB = () => {
-        handleClose();
     }
 
     const habndleCloseAll = () => {
@@ -51,8 +46,6 @@ function Singup(props) {
                 <Modal.Body className='formAddPost'>
                     <Form onSubmit={handSingup}>
                         <fieldset>
-                            {/* <button onClick={() => { handleshowLoginB() }}>Login</button> */}
-                            {/* <button>Singup</button> */}
                             <Form.Group className="mb-4 form-feld-post">
                                 <Form.Label >Username</Form.Label>
                                 <Form.Control id="name" type="text" pattern="^[a-zA-Z ]*$" />

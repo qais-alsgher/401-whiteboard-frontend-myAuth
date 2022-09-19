@@ -8,8 +8,8 @@ import NotAutToDelete from './NotAutToDelete';
 import UpdatePost from './UpdatePost';
 function CaedPost(props) {
 
-    const { loggedIn, setLoggedIn } = useContext(LoginContext);
-    const { userName, setUserName } = useContext(UserNameContext);
+    const { loggedIn } = useContext(LoginContext);
+    const { userName } = useContext(UserNameContext);
     const [showComment, setShowComent] = useState(false);
     const [showEditPost, setShowEditPost] = useState(false);
     const [postEditId, setPostEditId] = useState("");
