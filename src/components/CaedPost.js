@@ -1,14 +1,15 @@
-import { React, useState } from 'react';
+import { React, useState, useContext } from 'react';
 import Card from 'react-bootstrap/Card';
 import AddCommentForm from './AddCommentForm';
-import { useAuth0 } from "@auth0/auth0-react";
+import { LoginContext, UserNameContext } from '../Helper/Context';
 import { FaComment, FaEyeSlash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import NotAutToDelete from './NotAutToDelete';
 import UpdatePost from './UpdatePost';
 function CaedPost(props) {
 
-    const { user, isAuthenticated } = useAuth0();
+    const { loggedIn, setLoggedIn } = useContext(LoginContext);
+    const { userName, setUserName } = useContext(UserNameContext);
     const [showComment, setShowComent] = useState(false);
     const [showEditPost, setShowEditPost] = useState(false);
     const [postEditId, setPostEditId] = useState("");
@@ -23,7 +24,7 @@ function CaedPost(props) {
     }
     // to update post 
     const handleShowEditPost = (id, postAouthr) => {
-        if (user.name === postAouthr) {
+        if (userName === postAouthr) {
             setShowEditPost(true);
             setPostEditId(id);
         } else {
@@ -56,7 +57,7 @@ function CaedPost(props) {
                     </Card.Text>
                     <hr />
                 </Card.Body>
-                {(isAuthenticated && !showComment) &&
+                {(loggedIn && !showComment) &&
                     <FaComment className='icon-comment' onClick={hanleShow} />
 
                 }
@@ -67,15 +68,15 @@ function CaedPost(props) {
                     </div>
                 }
 
-                {!isAuthenticated &&
+                {!loggedIn &&
                     <p className='commentNon'>Pls Login To Can Comment</p>
                 }
                 {showComment &&
                     <AddCommentForm
                         commentPost={props.post}
-                        name={user.name}
+                        name={userName}
                         getPostComment={props.getPostComment}
-                        picture={user.picture} />
+                    />
                 }
             </Card>
             <UpdatePost

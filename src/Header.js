@@ -1,16 +1,15 @@
-import React from 'react';
+import { React, useState, useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Login from './components/Login';
 import LogoutButton from './components/LogoutButton';
-import { useAuth0 } from '@auth0/auth0-react';
-import { useState } from 'react';
+import { LoginContext } from './Helper/Context';
 import AddPostForm from './components/AddPostForm';
 import PageNotAuth from './components/PageNotAuth';
 import SolveProblems from './image/SolveProblems.jpg';
 function Header(props) {
-    const { isAuthenticated } = useAuth0();
+    const { loggedIn, setLoggedIn } = useContext(LoginContext);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -27,12 +26,12 @@ function Header(props) {
                             <button onClick={handleShow} className="btnt">Add Post</button>
                         </Nav>
                         <Nav className=" d-flex justify-content-end">
-                            {!isAuthenticated &&
+                            {!loggedIn &&
                                 <div>
                                     <Login />
                                 </div>
                             }
-                            {isAuthenticated &&
+                            {loggedIn &&
                                 <LogoutButton />
                             }
 
@@ -41,7 +40,7 @@ function Header(props) {
                 </Container>
             </Navbar>
             {
-                isAuthenticated &&
+                loggedIn &&
                 <AddPostForm
                     handleClose={handleClose}
                     show={show}
@@ -50,7 +49,7 @@ function Header(props) {
                 />
             }
             {
-                !isAuthenticated &&
+                !loggedIn &&
                 <PageNotAuth
                     handleClose={handleClose}
                     show={show}

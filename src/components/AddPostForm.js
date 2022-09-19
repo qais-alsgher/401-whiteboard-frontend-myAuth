@@ -1,22 +1,22 @@
-import React from 'react';
+import { React, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from "react-bootstrap/Form";
-import { useAuth0 } from "@auth0/auth0-react";
+import { UserNameContext } from '../Helper/Context';
 import axios from 'axios';
 
 function AddPostForm(props) {
-    const { user } = useAuth0();
+    const { userName, setUserName } = useContext(UserNameContext);
 
     const handleCreatePost = async (e) => {
         e.preventDefault();
 
         const newPost = {
-            postAouthr: user.name,
+            postAouthr: userName,
             postTitle: e.target.titlePost.value,
             postContent: e.target.ContentPost.value,
             postImge: e.target.imgUrl.value,
-            aouthrImage: user.picture
+            aouthrImage: null
         }
 
         await axios.post(`https://message-postgres.herokuapp.com/Post`, newPost);

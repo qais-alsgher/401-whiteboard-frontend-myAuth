@@ -1,15 +1,15 @@
-import { React, useState } from 'react';
+import { React, useState, useContext } from 'react';
 import CaedPost from './CaedPost';
 import axios from 'axios';
-import { useAuth0 } from "@auth0/auth0-react";
+import { UserNameContext } from '../Helper/Context';
 import NotAutToDelete from './NotAutToDelete';
 
 function Post(props) {
-    const { user } = useAuth0();
+    const { userName, setUserName } = useContext(UserNameContext);
     const [showNotAD, setShowNotAD] = useState(false);
     const [owner, setOwner] = useState("")
     const handledelete = async (postAouthr, id) => {
-        if (user.name === postAouthr) {
+        if (userName === postAouthr) {
             await axios.delete(`https://message-postgres.herokuapp.com/post/${id}`);
             props.getPostComment();
         } else {
