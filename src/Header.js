@@ -7,6 +7,8 @@ import { LoginContext } from './Helper/Context';
 import AddPostForm from './components/AddPostForm';
 import PageNotAuth from './components/PageNotAuth';
 import SolveProblems from './image/SolveProblems.jpg';
+
+
 function Header(props) {
     const { loggedIn } = useContext(LoginContext);
     const [show, setShow] = useState(false);
