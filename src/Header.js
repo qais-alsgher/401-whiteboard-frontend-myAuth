@@ -7,6 +7,8 @@ import { LoginContext } from './Helper/Context';
 import AddPostForm from './components/AddPostForm';
 import PageNotAuth from './components/PageNotAuth';
 import SolveProblems from './image/SolveProblems.jpg';
+
+
 function Header(props) {
     const { loggedIn } = useContext(LoginContext);
     const [show, setShow] = useState(false);
@@ -23,14 +25,14 @@ function Header(props) {
                     <Navbar.Collapse id="basic-navbar-nav">
 
                         <Nav className="me-auto">
-                            <Nav.Link href="/" className='p-lg-3 header-post'>Posts</Nav.Link>
+                            <Nav.Link href="https://632b8a73b9668800665cef71--cool-piroshki-3edb27.netlify.app/" className='p-lg-3 header-post'>Posts</Nav.Link>
                             <button onClick={handleShow} className="btnt p-lg-3">Add Post</button>
                         </Nav>
                         <Nav className=" d-flex justify-content-end">
                             {!loggedIn &&
                                 <div>
-                                    <Nav.Link href="/singup" className='btn  rounded-pill login ms-2'>Singup</Nav.Link>
-                                    <Nav.Link href="/login" className='btn  rounded-pill login'>Login</Nav.Link>
+                                    <Nav.Link href="https://632b8a73b9668800665cef71--cool-piroshki-3edb27.netlify.app/singup" className='btn  rounded-pill login ms-2'>Singup</Nav.Link>
+                                    <Nav.Link href="https://632b8a73b9668800665cef71--cool-piroshki-3edb27.netlify.app/login" className='btn  rounded-pill login'>Login</Nav.Link>
                                 </div>
                             }
                             {loggedIn &&

@@ -5,7 +5,7 @@ import axios from 'axios';
 import cookies from 'react-cookies';
 import { LoginContext, UserNameContext } from '../Helper/Context';
 
-function Singup(props) {
+function Singup() {
     const { loggedIn, setLoggedIn } = useContext(LoginContext);
     const { userName, setUserName } = useContext(UserNameContext);
 
