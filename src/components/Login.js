@@ -69,7 +69,7 @@ function Login() {
                 }
                 {loggedIn &&
                     <div>
-                        <h2 className='text-light'>welcome {userName} To Solve-Problems website 🎉</h2>
+                        <h2 className='text-white'>welcome {userName} To Solve-Problems website 🎉</h2>
                     </div>
                 }
             </div>
