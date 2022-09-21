@@ -10,7 +10,7 @@ function Post(props) {
     const [owner, setOwner] = useState("")
     const handledelete = async (postAouthr, id) => {
         if (userName === postAouthr) {
-            await axios.delete(`https://message-postgres.herokuapp.com/post/${id}`);
+            await axios.delete(`https://post-my-auth.herokuapp.com/post/${id}`);
             props.getPostComment();
         } else {
             setOwner(postAouthr);

@@ -1,19 +1,21 @@
 import { React, useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 import Form from "react-bootstrap/Form";
 import base64 from 'base-64';
 import axios from 'axios';
-import Singup from './Singup';
+
+import cookies from 'react-cookies';
+
 import { LoginContext, UserNameContext } from '../Helper/Context';
 function Login() {
-    const [show, setShow] = useState(false);
-    const { setLoggedIn } = useContext(LoginContext);
-    const { setUserName } = useContext(UserNameContext);
+    const [showInvalid, setShowInvalid] = useState(false);
+    const [messageInv, setMessageInv] = useState("");
+    const { loggedIn, setLoggedIn } = useContext(LoginContext);
+    const { userName, setUserName } = useContext(UserNameContext);
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
+        setShowInvalid(false);
         const data = {
             userName: e.target.email.value,
             password: e.target.password.value
@@ -28,49 +30,51 @@ function Login() {
         }).then(res => {
             console.log(res.data);
             setLoggedIn(true);
-            setUserName(e.target.email.value);
-            // setShow(false);
+            setUserName(res.data.userName);
+            cookies.save('token', res.data.token);
+            cookies.save('userName', res.data.userName);
+            cookies.save('userId', res.data.id);
+            setShowInvalid(false);
         }).catch(err => {
             console.log(err);
+            setMessageInv(err.response.data);
+            setShowInvalid(true);
         })
 
     }
-    const handleShow = () => {
-        setShow(true);
-    }
-    const handleClose = () => {
-        setShow(false);
-    }
 
     return (
+        <div className="row d-flex justify-content-center ">
+            <div className="col-lg-6 position-absolute top-50 translate-middle-y ">
 
-        <div >
-            <Modal show={show} onHide={() => handleClose()} className="all-modal">
-                <Modal.Header className='formAddPost' closeButton>
-                    <Modal.Title>Login</Modal.Title>
-                </Modal.Header>
-                <Modal.Body className='formAddPost'>
-                    <Form onSubmit={handleLogin}>
+
+                {!loggedIn &&
+                    <Form onSubmit={handleLogin} >
                         <fieldset>
-                            {/* <button>Login</button> */}
-                            <Form.Group className="mb-4 form-feld-post">
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control id="email" type='email' />
-                                <Form.Label>Password</Form.Label>
+                            <Form.Group className="mb-4 ">
+                                <Form.Label className='text-left text-light text-capitalize'>Email</Form.Label>
+                                <Form.Control id="email" type='email' className='mb-3' />
+                                <Form.Label className='text-left text-light text-capitalize'>Password</Form.Label>
                                 <Form.Control type="password" id="password" />
                             </Form.Group>
                             <Button onSubmit={handleLogin} className="btn  rounded-pill login" type="submit">
                                 Login
                             </Button>
-                            <Singup
-                                handleCloseLogin={handleClose}
-                            />
                         </fieldset>
+                        <br />
+                        {showInvalid &&
+                            <h3 class="text-danger">{messageInv}</h3>
+                        }
                     </Form>
-                </Modal.Body>
-            </Modal>
-            <button button className='btn  rounded-pill login' onClick={() => handleShow()}> Log In</button >;
-        </div>
+                }
+                {loggedIn &&
+                    <div>
+                        <h2 className='text-light'>welcome {userName} To Solve-Problems website 🎉</h2>
+                    </div>
+                }
+            </div>
+        </div >
+
     )
 
 

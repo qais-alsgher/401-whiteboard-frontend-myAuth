@@ -1,10 +1,13 @@
 import { React, useContext } from 'react';
-import { UserNameContext } from '../Helper/Context';
+import { LoginContext } from '../Helper/Context';
+import cookies from 'react-cookies';
+
 function LogoutButton() {
-    const { setUserName } = useContext(UserNameContext);
+    const { setLoggedIn } = useContext(LoginContext);
 
     const handleLogOut = () => {
-        setUserName(false);
+        cookies.remove('token');
+        setLoggedIn(false);
         window.location.reload();
     }
     return (

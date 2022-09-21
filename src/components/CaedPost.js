@@ -6,6 +6,7 @@ import { FaComment, FaEyeSlash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import NotAutToDelete from './NotAutToDelete';
 import UpdatePost from './UpdatePost';
+import defaultImage from '../image/defaultImage.jpg';
 function CaedPost(props) {
 
     const { loggedIn } = useContext(LoginContext);
@@ -50,7 +51,7 @@ function CaedPost(props) {
                 </div>
                 <Card.Title className='post-text' >{props.post.postTitle}</Card.Title>
 
-                <Card.Img variant="top" src={props.post.postImge} />
+                <Card.Img variant="top" src={props.post.postImge ? props.post.postImge : defaultImage} />
                 <Card.Body className='body-card-post'>
                     <Card.Text className='post-text'>
                         {props.post.postContent}

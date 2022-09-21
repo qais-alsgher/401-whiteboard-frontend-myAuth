@@ -11,7 +11,6 @@ function AddCommentForm(props) {
     const handleChange = (e) => {
         setContent(e.target.value)
     };
-
     const handleCreateComment = async (e) => {
         e.preventDefault();
         console.log(content);
@@ -22,7 +21,7 @@ function AddCommentForm(props) {
             autherCommentImage: props.picture
         }
 
-        await axios.post(`https://message-postgres.herokuapp.com/comment`, newComment);
+        await axios.post(`https://post-my-auth.herokuapp.com/comment`, newComment);
         props.getPostComment();
         setContent('');
     };

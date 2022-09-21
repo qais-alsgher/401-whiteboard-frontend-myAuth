@@ -16,7 +16,7 @@ function CommentForPost(props) {
     // to delte comment
     const handleDlete = async (id, commentAuther) => {
         if (userName === commentAuther) {
-            await axios.delete(`https://message-postgres.herokuapp.com/comment/${id}`);
+            await axios.delete(`https://post-my-auth.herokuapp.com/comment/${id}`);
             props.getPostComment();
         } else {
             setOwner(commentAuther);
@@ -51,7 +51,7 @@ function CommentForPost(props) {
             commentContent: updateValue
         };
 
-        await axios.put(`https://message-postgres.herokuapp.com/comment/${uptateId}`, changeComment);
+        await axios.put(`https://post-my-auth.herokuapp.com/comment/${uptateId}`, changeComment);
         props.getPostComment();
         setShowUpdate(false);
     }
