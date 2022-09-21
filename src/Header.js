@@ -2,7 +2,6 @@ import { React, useState, useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Login from './components/Login';
 import LogoutButton from './components/LogoutButton';
 import { LoginContext } from './Helper/Context';
 import AddPostForm from './components/AddPostForm';
@@ -19,16 +18,19 @@ function Header(props) {
         <div className="sticky-top" >
             <Navbar expand="lg" className='navbar'>
                 <Container >
-                    <Navbar.Brand href="#home"><img src={SolveProblems} className="logo-nav" alt='logo-solve-problems' /></Navbar.Brand>
+                    <Navbar.Brand href="/"><img src={SolveProblems} className="logo-nav" alt='logo-solve-problems' /></Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
+
                         <Nav className="me-auto">
-                            <button onClick={handleShow} className="btnt">Add Post</button>
+                            <Nav.Link href="/" className='p-lg-3 header-post'>Posts</Nav.Link>
+                            <button onClick={handleShow} className="btnt p-lg-3">Add Post</button>
                         </Nav>
                         <Nav className=" d-flex justify-content-end">
                             {!loggedIn &&
                                 <div>
-                                    <Login />
+                                    <Nav.Link href="/singup" className='btn  rounded-pill login ms-2'>Singup</Nav.Link>
+                                    <Nav.Link href="/login" className='btn  rounded-pill login'>Login</Nav.Link>
                                 </div>
                             }
                             {loggedIn &&

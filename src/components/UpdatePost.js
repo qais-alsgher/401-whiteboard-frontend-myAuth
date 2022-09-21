@@ -16,7 +16,7 @@ function UpdatePost(props) {
             postImge: e.target.imgUrl.value,
         }
 
-        await axios.put(`https://message-postgres.herokuapp.com/post/${props.id}`, editPost);
+        await axios.put(`https://post-my-auth.herokuapp.com/post/${props.id}`, editPost);
         props.getPostComment();
         props.handleClose();
     }

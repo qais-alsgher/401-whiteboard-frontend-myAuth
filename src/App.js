@@ -7,42 +7,75 @@ import Header from './Header';
 import Container from 'react-bootstrap/Container';
 import { LoginContext } from './Helper/Context';
 import { UserNameContext } from './Helper/Context';
+import Login from './components/Login';
+import cookies from 'react-cookies';
+import Singup from './components/Singup';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
 
 function App() {
 
   const [postsAndComment, setPostsAndComment] = useState([]);
-  const [showPosts, setShowPosts] = useState(false);
+  // const [showPosts, setShowPosts] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
 
   const getPostComment = async () => {
-    const allPostsAndComment = await axios.get(`https://message-postgres.herokuapp.com/PostComment`);
+    const allPostsAndComment = await axios.get(`https://post-my-auth.herokuapp.com/PostComment`);
     setPostsAndComment(allPostsAndComment.data);
-    setShowPosts(true);
+    // setShowPosts(true);
   };
 
   useEffect(() => {
     getPostComment();
+    const name = cookies.load('userName');
+    const token = cookies.load('token');
+    if (token) {
+      setLoggedIn(true);
+      setUserName(name);
+    }
   }, []);
 
   return (
     <LoginContext.Provider value={{ loggedIn, setLoggedIn }}>
       <UserNameContext.Provider value={{ userName, setUserName }}>
         <div className="App">
-          <Header getPostComment={getPostComment} />
-          <Container>
-            {showPosts &&
-              <Post
-                posts={postsAndComment}
-                getPostComment={getPostComment}
-                className="d-flex justify-content-center"
-              />
-            }
-
-          </Container>
+          <Router>
+            <Header getPostComment={getPostComment} />
+            <Container>
+              <Routes>
+                <Route
+                  exact path="/"
+                  element={<Post
+                    posts={postsAndComment}
+                    getPostComment={getPostComment}
+                    className="d-flex justify-content-center"
+                  />} >
+                </Route>
+                <Route
+                  exact path="/login"
+                  element={<Login />} >
+                </Route>
+                <Route
+                  exact path="/singup"
+                  element={<Singup />} >
+                </Route>
+                {/* {showPosts &&
+                    <Post
+                      posts={postsAndComment}
+                      getPostComment={getPostComment}
+                      className="d-flex justify-content-center"
+                    />
+                  } */}
+              </Routes>
+            </Container>
+          </Router>
         </div>
       </UserNameContext.Provider>
-    </LoginContext.Provider>
+    </LoginContext.Provider >
   );
 }
 

@@ -1,6 +1,4 @@
-.App {
-  text-align: center;
-}
+
 
 .App-logo {
   height: 40vmin;
@@ -87,7 +85,10 @@ justify-content: center!important;
   text-decoration: none;
   color: var(--color-text)!important;
 }
-.btnt:hover{
+.header-post{
+  color: var(--color-text)!important;
+}
+.btnt:hover ,.header-post:hover{
   color:var(--color-black)!important;
 }
 
@@ -101,6 +102,8 @@ justify-content: center!important;
   color: var(--color-black) !important;
   background-color:#76d8f3!important;
 }
+
+
 
 /* style post */
 .post{
@@ -291,3 +294,6 @@ cursor: pointer;
 .no-auth button:hover{
   color: var(--color-black)!important;
 }
+
+/* style login form  */
+

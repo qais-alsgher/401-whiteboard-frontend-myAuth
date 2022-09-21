@@ -7,7 +7,7 @@ import axios from 'axios';
 
 function AddPostForm(props) {
     const { userName } = useContext(UserNameContext);
-
+    const nullValue = undefined;
     const handleCreatePost = async (e) => {
         e.preventDefault();
 
@@ -16,10 +16,11 @@ function AddPostForm(props) {
             postTitle: e.target.titlePost.value,
             postContent: e.target.ContentPost.value,
             postImge: e.target.imgUrl.value,
-            aouthrImage: null
+            aouthrImage: nullValue
         }
+        console.log(newPost);
 
-        await axios.post(`https://message-postgres.herokuapp.com/Post`, newPost);
+        await axios.post(`https://post-my-auth.herokuapp.com/Post`, newPost);
         props.getPostComment();
         props.handleClose();
     };

@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Login from './Login';
 function PageNotAuth(props) {
     return (
         <div>
@@ -16,7 +15,7 @@ function PageNotAuth(props) {
                     <Button className='rounded-pill' variant="secondary" onClick={props.handleClose}>
                         Close
                     </Button>
-                    <Login />
+                    <button className='btn  rounded-pill login' onClick={() => { window.location.href = "/login" }}>login</button>
                 </Modal.Footer>
             </Modal>
         </div>
