@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from "react-bootstrap/Form";
 import { UserNameContext } from '../Helper/Context';
 import axios from 'axios';
+import cookies from 'react-cookies';
 
 function AddPostForm(props) {
     const { userName } = useContext(UserNameContext);
@@ -11,12 +12,15 @@ function AddPostForm(props) {
     const handleCreatePost = async (e) => {
         e.preventDefault();
 
+        const id = cookies.load('userId');
+
         const newPost = {
             postAouthr: userName,
             postTitle: e.target.titlePost.value,
             postContent: e.target.ContentPost.value,
             postImge: e.target.imgUrl.value,
-            aouthrImage: nullValue
+            aouthrImage: nullValue,
+            userId: id
         }
         console.log(newPost);
 

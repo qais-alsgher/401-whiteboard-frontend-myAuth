@@ -19,14 +19,13 @@ import {
 function App() {
 
   const [postsAndComment, setPostsAndComment] = useState([]);
-  // const [showPosts, setShowPosts] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
+
 
   const getPostComment = async () => {
     const allPostsAndComment = await axios.get(`https://post-my-auth.herokuapp.com/PostComment`);
     setPostsAndComment(allPostsAndComment.data);
-    // setShowPosts(true);
   };
 
   useEffect(() => {
@@ -63,13 +62,7 @@ function App() {
                   exact path="/singup"
                   element={<Singup />} >
                 </Route>
-                {/* {showPosts &&
-                    <Post
-                      posts={postsAndComment}
-                      getPostComment={getPostComment}
-                      className="d-flex justify-content-center"
-                    />
-                  } */}
+
               </Routes>
             </Container>
           </Router>
