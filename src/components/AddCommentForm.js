@@ -15,16 +15,17 @@ function AddCommentForm(props) {
     const handleCreateComment = async (e) => {
         e.preventDefault();
         const id = cookies.load('userId');
-        console.log(content);
+
         const newComment = {
             commentAuther: props.name,
             commentContent: content,
             postId: props.commentPost.id,
             autherCommentImage: props.picture,
-            userid: id
+            userId: +id
         }
 
-        await axios.post(`https://post-my-auth.herokuapp.com/comment`, newComment);
+        let a = await axios.post(`https://post-my-auth.herokuapp.com/comment`, newComment);
+        console.log(a);
         props.getPostComment();
         setContent('');
     };
