@@ -47,7 +47,7 @@ function App() {
             <Container>
               <Routes>
                 <Route
-                  exact path="https://632b8a73b9668800665cef71--cool-piroshki-3edb27.netlify.app/"
+                  exact path="/"
                   element={<Post
                     posts={postsAndComment}
                     getPostComment={getPostComment}
@@ -55,11 +55,11 @@ function App() {
                   />} >
                 </Route>
                 <Route
-                  exact path="https://632b8a73b9668800665cef71--cool-piroshki-3edb27.netlify.app/login"
+                  exact path="/login"
                   element={<Login />} >
                 </Route>
                 <Route
-                  exact path="https://632b8a73b9668800665cef71--cool-piroshki-3edb27.netlify.app/singup"
+                  exact path="/singup"
                   element={<Singup />} >
                 </Route>
 
