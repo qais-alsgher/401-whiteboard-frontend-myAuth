@@ -3,6 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import CommentForPost from './CommentForPost';
 import { MdSend } from "react-icons/md";
+import cookies from "react-cookies";
 
 function AddCommentForm(props) {
 
@@ -13,12 +14,14 @@ function AddCommentForm(props) {
     };
     const handleCreateComment = async (e) => {
         e.preventDefault();
+        const id = cookies.load('userId');
         console.log(content);
         const newComment = {
             commentAuther: props.name,
             commentContent: content,
             postId: props.commentPost.id,
-            autherCommentImage: props.picture
+            autherCommentImage: props.picture,
+            userid: id
         }
 
         await axios.post(`https://post-my-auth.herokuapp.com/comment`, newComment);

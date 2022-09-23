@@ -25,14 +25,14 @@ function Header(props) {
                     <Navbar.Collapse id="basic-navbar-nav">
 
                         <Nav className="me-auto">
-                            <Nav.Link href="https://632b8a73b9668800665cef71--cool-piroshki-3edb27.netlify.app/" className='p-lg-3 header-post'>Posts</Nav.Link>
+                            <Nav.Link href="/" className='p-lg-3 header-post'>Posts</Nav.Link>
                             <button onClick={handleShow} className="btnt p-lg-3">Add Post</button>
                         </Nav>
                         <Nav className=" d-flex justify-content-end">
                             {!loggedIn &&
                                 <div>
-                                    <Nav.Link href="https://632b8a73b9668800665cef71--cool-piroshki-3edb27.netlify.app/singup" className='btn  rounded-pill login ms-2'>Singup</Nav.Link>
-                                    <Nav.Link href="https://632b8a73b9668800665cef71--cool-piroshki-3edb27.netlify.app/login" className='btn  rounded-pill login'>Login</Nav.Link>
+                                    <Nav.Link href="/singup" className='btn  rounded-pill login ms-2'>Singup</Nav.Link>
+                                    <Nav.Link href="/login" className='btn  rounded-pill login'>Login</Nav.Link>
                                 </div>
                             }
                             {loggedIn &&
