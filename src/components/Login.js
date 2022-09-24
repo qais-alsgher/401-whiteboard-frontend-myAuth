@@ -19,11 +19,11 @@ function Login() {
         e.preventDefault();
         setShowInvalid(false);
         const data = {
-            userName: e.target.email.value,
+            email: e.target.email.value,
             password: e.target.password.value
         }
 
-        const encodedHeader = base64.encode(`${data.userName}:${data.password}`);
+        const encodedHeader = base64.encode(`${data.email}:${data.password}`);
 
         await axios.post(`https://post-my-auth.herokuapp.com/login`, {}, {
             headers: {
