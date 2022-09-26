@@ -36,6 +36,7 @@ function Login() {
             cookies.save('token', res.data.token);
             cookies.save('userName', res.data.userName);
             cookies.save('userId', res.data.id);
+            cookies.save('role', res.data.role);
             setShowInvalid(false);
         }).catch(err => {
             console.log(err);
@@ -51,23 +52,26 @@ function Login() {
 
 
                 {!loggedIn &&
-                    <Form onSubmit={handleLogin} >
-                        <fieldset>
-                            <Form.Group className="mb-4 ">
-                                <Form.Label className='text-left text-light text-capitalize'>Email</Form.Label>
-                                <Form.Control id="email" type='email' className='mb-3' />
-                                <Form.Label className='text-left text-light text-capitalize'>Password</Form.Label>
-                                <Form.Control type="password" id="password" />
-                            </Form.Group>
-                            <Button onSubmit={handleLogin} className="btn  rounded-pill login" type="submit">
-                                Login
-                            </Button>
-                        </fieldset>
-                        <br />
-                        {showInvalid &&
-                            <h3 class="text-danger">{messageInv}</h3>
-                        }
-                    </Form>
+                    <>
+                        <h2 className='text-center text-white mb-5'>Login</h2>
+                        <Form onSubmit={handleLogin} >
+                            <fieldset>
+                                <Form.Group className="mb-4 ">
+                                    <Form.Label className='text-left text-light text-capitalize'>Email</Form.Label>
+                                    <Form.Control id="email" type='email' className='mb-3' />
+                                    <Form.Label className='text-left text-light text-capitalize'>Password</Form.Label>
+                                    <Form.Control type="password" id="password" />
+                                </Form.Group>
+                                <Button onSubmit={handleLogin} className="btn  rounded-pill login" type="submit">
+                                    Login
+                                </Button>
+                            </fieldset>
+                            <br />
+                            {showInvalid &&
+                                <h3 class="text-danger">{messageInv}</h3>
+                            }
+                        </Form>
+                    </>
                 }
                 {loggedIn &&
                     <div>

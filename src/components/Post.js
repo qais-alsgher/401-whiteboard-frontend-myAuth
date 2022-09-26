@@ -1,25 +1,40 @@
-import { React, useState, useContext } from 'react';
+import React from 'react';
 import CaedPost from './CaedPost';
 import axios from 'axios';
-import { UserNameContext } from '../Helper/Context';
-import NotAutToDelete from './NotAutToDelete';
+import Swal from 'sweetalert2';
+import cookies from 'react-cookies';
 
 function Post(props) {
-    const { userName } = useContext(UserNameContext);
-    const [showNotAD, setShowNotAD] = useState(false);
-    const [owner, setOwner] = useState("")
-    const handledelete = async (postAouthr, id) => {
-        if (userName === postAouthr) {
-            await axios.delete(`https://post-my-auth.herokuapp.com/post/${id}`);
-            props.getPostComment();
-        } else {
-            setOwner(postAouthr);
-            setShowNotAD(true);
-        }
+
+
+    const handledelete = async (id) => {
+        const token = cookies.load('token');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+                await axios.delete(`https://post-my-auth.herokuapp.com/post/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                props.getPostComment();
+            };
+        })
+
     }
-    const handleClose = () => {
-        setShowNotAD(false);
-    }
+
     return (
         <div>
             {
@@ -34,10 +49,10 @@ function Post(props) {
                     )
                 })
             }
-            <NotAutToDelete
+            {/* <NotAutToDelete
                 show={showNotAD}
                 handleClose={handleClose}
-                owner={owner} />
+                owner={owner} /> */}
         </div>
     )
 }

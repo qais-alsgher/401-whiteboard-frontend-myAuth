@@ -4,6 +4,7 @@ import { MdEdit, MdDelete, MdSend } from "react-icons/md";
 import axios from 'axios';
 import { UserNameContext } from '../Helper/Context';
 import NotAutToDelete from './NotAutToDelete';
+import cookies from 'react-cookies';
 
 function CommentForPost(props) {
     const { userName } = useContext(UserNameContext);
@@ -16,8 +17,15 @@ function CommentForPost(props) {
     // to delte comment
     const handleDlete = async (id, commentAuther) => {
         if (userName === commentAuther) {
-            await axios.delete(`https://post-my-auth.herokuapp.com/comment/${id}`);
+            const token = cookies.load('token');
+
+            await axios.delete(`https://post-my-auth.herokuapp.com/comment/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             props.getPostComment();
+
         } else {
             setOwner(commentAuther);
             setShowNotAD(true);
@@ -50,8 +58,13 @@ function CommentForPost(props) {
         const changeComment = {
             commentContent: updateValue
         };
+        const token = cookies.load('token');
 
-        await axios.put(`https://post-my-auth.herokuapp.com/comment/${uptateId}`, changeComment);
+        await axios.put(`https://post-my-auth.herokuapp.com/comment/${uptateId}`, changeComment, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         props.getPostComment();
         setShowUpdate(false);
     }

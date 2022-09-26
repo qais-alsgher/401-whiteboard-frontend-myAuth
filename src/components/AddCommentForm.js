@@ -15,6 +15,7 @@ function AddCommentForm(props) {
     const handleCreateComment = async (e) => {
         e.preventDefault();
         const id = cookies.load('userId');
+        const token = cookies.load('token');
 
         const newComment = {
             commentAuther: props.name,
@@ -24,7 +25,11 @@ function AddCommentForm(props) {
             userId: +id
         }
 
-        let a = await axios.post(`https://post-my-auth.herokuapp.com/comment`, newComment);
+        let a = await axios.post(`https://post-my-auth.herokuapp.com/comment`, newComment, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         console.log(a);
         props.getPostComment();
         setContent('');
