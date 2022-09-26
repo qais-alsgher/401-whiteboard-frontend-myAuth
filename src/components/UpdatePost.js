@@ -3,12 +3,14 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from "react-bootstrap/Form";
 import axios from 'axios';
+import cookies from 'react-cookies';
+import Swal from 'sweetalert2';
 
 function UpdatePost(props) {
 
     const handleUpdatePost = async (e) => {
         e.preventDefault();
-        console.log(e.target.titlePost.value);
+        const token = cookies.load('token');
 
         const editPost = {
             postTitle: e.target.titlePost.value,
@@ -16,9 +18,21 @@ function UpdatePost(props) {
             postImge: e.target.imgUrl.value,
         }
 
-        await axios.put(`https://post-my-auth.herokuapp.com/post/${props.id}`, editPost);
-        props.getPostComment();
-        props.handleClose();
+        await axios.put(`https://post-my-auth.herokuapp.com/post/${props.id}`, editPost, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((res) => {
+            props.getPostComment();
+            props.handleClose();
+            Swal.fire(
+                'Update The Post Successfully :)',
+                '',
+                'success'
+            )
+        }).catch(e => {
+            console.log(e.message || e);
+        })
     }
     return (
         <div >

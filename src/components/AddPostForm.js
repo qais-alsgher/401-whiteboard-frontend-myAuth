@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import { UserNameContext } from '../Helper/Context';
 import axios from 'axios';
 import cookies from 'react-cookies';
+import Swal from 'sweetalert2';
 
 function AddPostForm(props) {
     const { userName } = useContext(UserNameContext);
@@ -13,6 +14,7 @@ function AddPostForm(props) {
         e.preventDefault();
 
         const id = cookies.load('userId');
+        const token = cookies.load('token');
 
         const newPost = {
             postAouthr: userName,
@@ -24,9 +26,22 @@ function AddPostForm(props) {
         }
         console.log(newPost);
 
-        await axios.post(`https://post-my-auth.herokuapp.com/Post`, newPost);
-        props.getPostComment();
-        props.handleClose();
+        await axios.post(`https://post-my-auth.herokuapp.com/Post`, newPost, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(res => {
+            props.getPostComment();
+            props.handleClose();
+            Swal.fire(
+                'Added The Post Successfully :)',
+                '',
+                'success'
+            )
+
+        }).catch(e => {
+            console.log(e.message || e);
+        })
     };
 
     return (

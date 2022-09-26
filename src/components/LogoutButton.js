@@ -8,7 +8,6 @@ function LogoutButton() {
     const handleLogOut = () => {
         cookies.remove('token');
         setLoggedIn(false);
-        window.location.reload();
     }
     return (
         <button className='btn  rounded-pill login' onClick={() => { handleLogOut() }}>
