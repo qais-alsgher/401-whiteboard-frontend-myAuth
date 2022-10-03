@@ -44,7 +44,8 @@ function CaedPost(props) {
                 <div className='owner-post-row'>
                     <img className="imge-owner-post" src={props.post.aouthrImage} alt="imge owner the post" />
                     <Card.Text className='post-name'>{props.post.postAouthr}
-                        {role === 'admin' && loggedIn &&
+
+                        {(role === 'admin' || props.post.postAouthr === userName) && loggedIn &&
                             <>
                                 <MdEdit className='edit-post-icon' onClick={() => { handleShowEditPost(props.post.id) }} />
                                 <button onClick={() => { props.handleDelete(props.post.id) }}>X</button>
