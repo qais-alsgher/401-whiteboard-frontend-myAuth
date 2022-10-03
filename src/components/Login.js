@@ -62,7 +62,7 @@ function Login() {
                                     <Form.Label className='text-left text-light text-capitalize'>Password</Form.Label>
                                     <Form.Control type="password" id="password" />
                                 </Form.Group>
-                                <Button onSubmit={handleLogin} className="btn  rounded-pill login" type="submit">
+                                <Button onSubmit={handleLogin} className="btn  rounded-pill login" type="submit" id='submit'>
                                     Login
                                 </Button>
                             </fieldset>
