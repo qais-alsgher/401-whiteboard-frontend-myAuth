@@ -1,4 +1,4 @@
-import { React, useState, useContext, useEffect } from 'react';
+import { React, useState, useContext } from 'react';
 import Card from 'react-bootstrap/Card';
 import AddCommentForm from './AddCommentForm';
 import { authContext } from '../Context/AuthContext';
@@ -6,7 +6,6 @@ import { FaComment, FaEyeSlash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import UpdatePost from './UpdatePost';
 import DefaultImage from '../image/DefaultImage.jpg';
-import cookies from 'react-cookies';
 
 function CaedPost(props) {
 
@@ -14,12 +13,9 @@ function CaedPost(props) {
     const [showComment, setShowComent] = useState(false);
     const [showEditPost, setShowEditPost] = useState(false);
     const [postEditId, setPostEditId] = useState("");
-    const [role, setRole] = useState('');
 
 
-    useEffect(() => {
-        setRole(cookies.load('role'));
-    }, []);
+
 
     const hanleShow = () => {
         setShowComent(true);
@@ -45,18 +41,20 @@ function CaedPost(props) {
                     <Card.Text className='post-name'>{props.post.postAouthr}
 
                         <>
-                            {(canDo("update") || props.post.postAouthr === userName) && loggedIn &&
+                            {(canDo('update') || props.post.postAouthr === userName) && loggedIn &&
                                 <MdEdit className='edit-post-icon' onClick={() => { handleShowEditPost(props.post.id) }} />
                             }
-                            {(canDo("delete") || props.post.postAouthr === userName) && loggedIn &&
+                            {(canDo('delete') || props.post.postAouthr === userName) && loggedIn &&
                                 <button onClick={() => { props.handleDelete(props.post.id) }}>X</button>
                             }
                         </>
                     </Card.Text>
                 </div>
-                <Card.Title className='post-text' >{props.post.postTitle}</Card.Title>
+                <Card.Title className={props.post.postImge ? 'post-text' : 'post-text-Noimg'}>{props.post.postTitle}</Card.Title>
+                {props.post.postImge &&
 
-                <Card.Img variant="top" src={props.post.postImge ? props.post.postImge : DefaultImage} />
+                    <Card.Img variant="top" src={props.post.postImge ? props.post.postImge : DefaultImage} />
+                }
                 <Card.Body className='body-card-post'>
                     <Card.Text className='post-text'>
                         {props.post.postContent}

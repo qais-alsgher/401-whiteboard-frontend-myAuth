@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import Post from './components/Post';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './Header';
@@ -16,13 +16,12 @@ import {
 
 function App() {
 
-  const { checkToken, capabilities } = useContext(authContext);
+  const { checkToken } = useContext(authContext);
   const { getPostComment } = useContext(postContext);
 
   useEffect(() => {
     getPostComment();
     checkToken();
-
   });
 
 

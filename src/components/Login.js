@@ -23,11 +23,11 @@ function Login() {
                             <fieldset>
                                 <Form.Group className="mb-4 ">
                                     <Form.Label className='text-left text-light text-capitalize'>Email</Form.Label>
-                                    <Form.Control id="email" type='email' className='mb-3' />
+                                    <Form.Control id="email" data-testid="login-email" type='email' className='mb-3' />
                                     <Form.Label className='text-left text-light text-capitalize'>Password</Form.Label>
-                                    <Form.Control type="password" id="password" />
+                                    <Form.Control type="password" id="password" data-testid="login-password" />
                                 </Form.Group>
-                                <Button onSubmit={handleLogin} className="btn  rounded-pill login" type="submit" id='submit'>
+                                <Button onSubmit={handleLogin} className="btn  rounded-pill login" type="submit" id='submit' data-testid="login-submit">
                                     Login
                                 </Button>
                             </fieldset>
@@ -40,7 +40,7 @@ function Login() {
                 }
                 {loggedIn &&
                     <div>
-                        <h2 className='text-white'>welcome {userName} To Solve-Problems website 🎉</h2>
+                        <h2 className='text-white' data-testid="welcome-mes">welcome {userName} To Solve-Problems website 🎉</h2>
                     </div>
                 }
             </div>

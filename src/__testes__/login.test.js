@@ -2,18 +2,29 @@ import React from "react";
 import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Login from '../components/Login';
+import AuthContextProvider from '../Context/AuthContext';
+// import userEvent from '@testing-library/user-event';
 
-xtest('test login', () => {
-    render(<Login />);
-    const inputEmail = screen.getAllByTestId('email');
-    const inputPassword = screen.getByTestId('password');
-    const submitButton = screen.getByTestId('submit');
-    fireEvent.change(inputEmail, { target: { value: 'qais@test.com' } });
-    fireEvent.change(inputPassword, { target: { value: '123' } });
-    fireEvent.click(submitButton);
+test('test login', async () => {
+    render(
+        <AuthContextProvider>
+            <Login />
+        </AuthContextProvider>)
 
-    expect(inputEmail.value).toBe('qais@test.com');
-    expect(inputPassword.value).toBe('123');
+    const inputEmail = screen.getByTestId('login-email');
+    const inputPassword = screen.queryByTestId('login-password');
+    const submitButton = screen.queryByTestId('login-submit');
 
 
-})
+    fireEvent.input(inputEmail, { target: { value: 'qais@test.com' } });
+    fireEvent.change(inputPassword, { target: { value: 123 } });
+    // userEvent.type(inputEmail, 'qais@test.com');
+    // userEvent.type(inputPassword, 123)
+
+    expect(inputEmail).toHaveValue('qais@test.com');
+    // userEvent.click(submitButton);
+    expect(inputEmail).toHaveValue('qais@test.com');
+    expect(inputPassword.value).toBe("123");
+
+});
+

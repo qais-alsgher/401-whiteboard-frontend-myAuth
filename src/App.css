@@ -127,6 +127,10 @@ justify-content: center!important;
   padding-left:15px ;
 }
 
+.post-text-Noimg{
+text-align: center!important;
+}
+
 .body-card-post{
   padding-bottom: 0!important;
 }

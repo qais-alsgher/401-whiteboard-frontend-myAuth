@@ -6,9 +6,9 @@ import cookies from 'react-cookies';
 import { postContext } from '../Context/PostContext';
 
 
-function Post(props) {
-
+function Post() {
     const { getPostComment, postsAndComment } = useContext(postContext);
+
 
     const handledelete = async (id) => {
         const token = cookies.load('token');

@@ -13,7 +13,7 @@ const AuthContextProvider = (props) => {
     const [showInvalid, setShowInvalid] = useState(false);
     const [messageInv, setMessageInv] = useState("");
     const [userName, setUserName] = useState("");
-    const [capabilities, setCapabilities] = useState();
+    // const [capabilities, setCapabilities] = useState();
 
 
 
@@ -21,6 +21,7 @@ const AuthContextProvider = (props) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         setShowInvalid(false);
+        console.log(e.target.email.value);
         const data = {
             email: e.target.email.value,
             password: e.target.password.value
@@ -84,19 +85,21 @@ const AuthContextProvider = (props) => {
     const checkToken = () => {
         const name = cookies.load('userName');
         const token = cookies.load('token');
-
+        // const capabilitieUser = cookies.load('capabilities');
         // console.log(capabilitieUser);
         if (token) {
             setLoggedIn(true);
             setUserName(name);
-            // const capabilitieUser = cookies.load('capabilities');
+            // var capabilitieUser = cookies.load('capabilities');
             // setCapabilities(cookies.load('capabilities'));
         }
-        // setCapabilities(capabilitieUser);
+        // setCapabilities(5);
         // console.log(capabilities);
+        // console.log(capabilitieUser);
     }
 
     const canDo = (action) => {
+
         const capabilitieUser = cookies.load('capabilities');
 
         if (!capabilitieUser.includes(action)) {
