@@ -1,17 +1,19 @@
-import React from 'react';
-import { useState } from 'react';
+import { React, useState, useContext } from 'react';
 import axios from 'axios';
 import CommentForPost from './CommentForPost';
 import { MdSend } from "react-icons/md";
 import cookies from "react-cookies";
+import { postContext } from '../Context/PostContext'
 
 function AddCommentForm(props) {
 
     const [content, setContent] = useState('');
+    const { getPostComment } = useContext(postContext);
 
     const handleChange = (e) => {
         setContent(e.target.value)
     };
+
     const handleCreateComment = async (e) => {
         e.preventDefault();
         const id = cookies.load('userId');
@@ -31,9 +33,10 @@ function AddCommentForm(props) {
             }
         });
         console.log(a);
-        props.getPostComment();
+        getPostComment();
         setContent('');
     };
+
     return (
         <div>
             {
@@ -42,7 +45,6 @@ function AddCommentForm(props) {
                         <div key={index}>
                             < CommentForPost
                                 comment={ele}
-                                getPostComment={props.getPostComment}
                             />
                         </div>
                     )

@@ -1,14 +1,10 @@
 import { React, useContext } from 'react';
-import { LoginContext } from '../Helper/Context';
-import cookies from 'react-cookies';
+import { authContext } from '../Context/AuthContext';
+
 
 function LogoutButton() {
-    const { setLoggedIn } = useContext(LoginContext);
+    const { handleLogOut } = useContext(authContext);
 
-    const handleLogOut = () => {
-        cookies.remove('token');
-        setLoggedIn(false);
-    }
     return (
         <button className='btn  rounded-pill login' onClick={() => { handleLogOut() }}>
             Log Out

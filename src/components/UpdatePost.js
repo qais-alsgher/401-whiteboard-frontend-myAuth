@@ -1,12 +1,14 @@
-import React from 'react';
+import { React, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from "react-bootstrap/Form";
 import axios from 'axios';
 import cookies from 'react-cookies';
 import Swal from 'sweetalert2';
+import { postContext } from '../Context/PostContext';
 
 function UpdatePost(props) {
+    const { getPostComment } = useContext(postContext);
 
     const handleUpdatePost = async (e) => {
         e.preventDefault();
@@ -23,7 +25,7 @@ function UpdatePost(props) {
                 Authorization: `Bearer ${token}`
             }
         }).then((res) => {
-            props.getPostComment();
+            getPostComment();
             props.handleClose();
             Swal.fire(
                 'Update The Post Successfully :)',

@@ -3,14 +3,15 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import LogoutButton from './components/LogoutButton';
-import { LoginContext } from './Helper/Context';
+import { authContext } from './Context/AuthContext';
 import AddPostForm from './components/AddPostForm';
 import PageNotAuth from './components/PageNotAuth';
 import SolveProblems from './image/SolveProblems.jpg';
 
 
 function Header(props) {
-    const { loggedIn } = useContext(LoginContext);
+    const { loggedIn } = useContext(authContext);
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -49,7 +50,6 @@ function Header(props) {
                     handleClose={handleClose}
                     show={show}
                     setShow={setShow}
-                    getPostComment={props.getPostComment}
                 />
             }
             {
@@ -58,7 +58,6 @@ function Header(props) {
                     handleClose={handleClose}
                     show={show}
                     setShow={setShow}
-                    getPostComment={props.getPostComment}
                 />
             }
         </div >

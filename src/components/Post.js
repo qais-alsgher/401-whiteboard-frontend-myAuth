@@ -1,10 +1,13 @@
-import React from 'react';
+import { React, useContext } from 'react';
 import CaedPost from './CaedPost';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import cookies from 'react-cookies';
+import { postContext } from '../Context/PostContext';
 
-function Post(props) {
+
+function Post() {
+    const { getPostComment, postsAndComment } = useContext(postContext);
 
 
     const handledelete = async (id) => {
@@ -29,7 +32,7 @@ function Post(props) {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                props.getPostComment();
+                getPostComment();
             };
         })
 
@@ -38,21 +41,16 @@ function Post(props) {
     return (
         <div>
             {
-                props.posts.map((ele, indxe) => {
+                postsAndComment.map((ele, indxe) => {
                     return (
                         <div key={indxe}>
                             <CaedPost
                                 post={ele}
-                                getPostComment={props.getPostComment}
                                 handleDelete={handledelete} />
                         </div>
                     )
                 })
             }
-            {/* <NotAutToDelete
-                show={showNotAD}
-                handleClose={handleClose}
-                owner={owner} /> */}
         </div>
     )
 }

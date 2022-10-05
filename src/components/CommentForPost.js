@@ -2,12 +2,14 @@ import { React, useState, useContext } from 'react';
 import { BsArrowReturnRight } from "react-icons/bs";
 import { MdEdit, MdDelete, MdSend } from "react-icons/md";
 import axios from 'axios';
-import { UserNameContext } from '../Helper/Context';
+import { authContext } from '../Context/AuthContext';
+import { postContext } from '../Context/PostContext';
 import NotAutToDelete from './NotAutToDelete';
 import cookies from 'react-cookies';
 
 function CommentForPost(props) {
-    const { userName } = useContext(UserNameContext);
+    const { userName } = useContext(authContext);
+    const { getPostComment } = useContext(postContext);
     const [showNotAD, setShowNotAD] = useState(false);
     const [owner, setOwner] = useState("");
     const [showUpdate, setShowUpdate] = useState(false);
@@ -24,7 +26,7 @@ function CommentForPost(props) {
                     Authorization: `Bearer ${token}`
                 }
             });
-            props.getPostComment();
+            getPostComment();
 
         } else {
             setOwner(commentAuther);
@@ -65,7 +67,7 @@ function CommentForPost(props) {
                 Authorization: `Bearer ${token}`
             }
         });
-        props.getPostComment();
+        getPostComment();
         setShowUpdate(false);
     }
 
