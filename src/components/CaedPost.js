@@ -1,7 +1,7 @@
 import { React, useState, useContext, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import AddCommentForm from './AddCommentForm';
-import { LoginContext, UserNameContext } from '../Helper/Context';
+import { authContext } from '../Context/AuthContext';
 import { FaComment, FaEyeSlash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import UpdatePost from './UpdatePost';
@@ -10,8 +10,7 @@ import cookies from 'react-cookies';
 
 function CaedPost(props) {
 
-    const { loggedIn } = useContext(LoginContext);
-    const { userName } = useContext(UserNameContext);
+    const { loggedIn, userName, canDo } = useContext(authContext);
     const [showComment, setShowComent] = useState(false);
     const [showEditPost, setShowEditPost] = useState(false);
     const [postEditId, setPostEditId] = useState("");
@@ -45,12 +44,14 @@ function CaedPost(props) {
                     <img className="imge-owner-post" src={props.post.aouthrImage} alt="imge owner the post" />
                     <Card.Text className='post-name'>{props.post.postAouthr}
 
-                        {(role === 'admin' || props.post.postAouthr === userName) && loggedIn &&
-                            <>
+                        <>
+                            {(canDo("update") || props.post.postAouthr === userName) && loggedIn &&
                                 <MdEdit className='edit-post-icon' onClick={() => { handleShowEditPost(props.post.id) }} />
+                            }
+                            {(canDo("delete") || props.post.postAouthr === userName) && loggedIn &&
                                 <button onClick={() => { props.handleDelete(props.post.id) }}>X</button>
-                            </>
-                        }
+                            }
+                        </>
                     </Card.Text>
                 </div>
                 <Card.Title className='post-text' >{props.post.postTitle}</Card.Title>
@@ -84,7 +85,6 @@ function CaedPost(props) {
                     <AddCommentForm
                         commentPost={props.post}
                         name={userName}
-                        getPostComment={props.getPostComment}
                     />
                 }
             </Card >
@@ -93,7 +93,6 @@ function CaedPost(props) {
                 show={showEditPost}
                 id={postEditId}
                 handleClose={handleClose}
-                getPostComment={props.getPostComment}
             />
         </div >
     )

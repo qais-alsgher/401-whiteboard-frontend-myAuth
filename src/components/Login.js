@@ -1,50 +1,15 @@
-import { React, useContext, useState } from 'react';
+import { React, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from "react-bootstrap/Form";
-import base64 from 'base-64';
-import axios from 'axios';
+import { authContext } from '../Context/AuthContext';
 
-import cookies from 'react-cookies';
 
-import { LoginContext, UserNameContext } from '../Helper/Context';
 
 
 function Login() {
-    const [showInvalid, setShowInvalid] = useState(false);
-    const [messageInv, setMessageInv] = useState("");
-    const { loggedIn, setLoggedIn } = useContext(LoginContext);
-    const { userName, setUserName } = useContext(UserNameContext);
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        setShowInvalid(false);
-        const data = {
-            email: e.target.email.value,
-            password: e.target.password.value
-        }
+    const { loggedIn, userName, handleLogin, showInvalid, messageInv } = useContext(authContext);
 
-        const encodedHeader = base64.encode(`${data.email}:${data.password}`);
-
-        await axios.post(`https://post-my-auth.herokuapp.com/login`, {}, {
-            headers: {
-                Authorization: `Basic ${encodedHeader}`
-            }
-        }).then(res => {
-            console.log(res.data);
-            setLoggedIn(true);
-            setUserName(res.data.userName);
-            cookies.save('token', res.data.token);
-            cookies.save('userName', res.data.userName);
-            cookies.save('userId', res.data.id);
-            cookies.save('role', res.data.role);
-            setShowInvalid(false);
-        }).catch(err => {
-            console.log(err);
-            setMessageInv(err.response.data);
-            setShowInvalid(true);
-        })
-
-    }
 
     return (
         <div className="row d-flex justify-content-center ">

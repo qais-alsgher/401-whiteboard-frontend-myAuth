@@ -1,36 +1,10 @@
 import { React, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from "react-bootstrap/Form";
-import axios from 'axios';
-import cookies from 'react-cookies';
-import { LoginContext, UserNameContext } from '../Helper/Context';
+import { authContext } from '../Context/AuthContext';
 
 function Singup() {
-    const { loggedIn, setLoggedIn } = useContext(LoginContext);
-    const { userName, setUserName } = useContext(UserNameContext);
-
-
-    const handSingup = async (e) => {
-        e.preventDefault();
-        const data = {
-            userName: e.target.name.value,
-            email: e.target.email.value,
-            password: e.target.password.value,
-            role: e.target.role.value
-        }
-        await axios.post('https://post-my-auth.herokuapp.com/singup', data).then(res => {
-            console.log(res);
-            setLoggedIn(true);
-            setUserName(res.data.userName);
-            cookies.save('token', res.data.token);
-            cookies.save('userName', res.data.userName);
-            cookies.save('userId', res.data.id);
-            cookies.save('role', res.data.role);
-        }).catch(e => console.log(e))
-
-    }
-
-
+    const { loggedIn, handSingup, userName } = useContext(authContext);
 
 
     return (

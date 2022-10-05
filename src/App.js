@@ -1,15 +1,13 @@
 import './App.css';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect, useContext } from 'react';
 import Post from './components/Post';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './Header';
 import Container from 'react-bootstrap/Container';
-import { LoginContext } from './Helper/Context';
-import { UserNameContext } from './Helper/Context';
 import Login from './components/Login';
-import cookies from 'react-cookies';
 import Singup from './components/Singup';
+import { authContext } from './Context/AuthContext';
+import { postContext } from './Context/PostContext';
 import {
   BrowserRouter as Router,
   Routes,
@@ -18,57 +16,41 @@ import {
 
 function App() {
 
-  const [postsAndComment, setPostsAndComment] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [userName, setUserName] = useState("");
-
-
-  const getPostComment = async () => {
-    const allPostsAndComment = await axios.get(`https://post-my-auth.herokuapp.com/PostComment`);
-    setPostsAndComment(allPostsAndComment.data);
-  };
+  const { checkToken, capabilities } = useContext(authContext);
+  const { getPostComment } = useContext(postContext);
 
   useEffect(() => {
     getPostComment();
-    const name = cookies.load('userName');
-    const token = cookies.load('token');
-    if (token) {
-      setLoggedIn(true);
-      setUserName(name);
-    }
-  }, []);
+    checkToken();
+
+  });
+
 
   return (
-    <LoginContext.Provider value={{ loggedIn, setLoggedIn }}>
-      <UserNameContext.Provider value={{ userName, setUserName }}>
-        <div className="App">
-          <Router>
-            <Header getPostComment={getPostComment} />
-            <Container>
-              <Routes>
-                <Route
-                  exact path="/"
-                  element={<Post
-                    posts={postsAndComment}
-                    getPostComment={getPostComment}
-                    className="d-flex justify-content-center"
-                  />} >
-                </Route>
-                <Route
-                  exact path="/login"
-                  element={<Login />} >
-                </Route>
-                <Route
-                  exact path="/singup"
-                  element={<Singup />} >
-                </Route>
+    <div className="App">
+      <Router>
+        <Header />
+        <Container>
+          <Routes>
+            <Route
+              exact path="/"
+              element={<Post
+                className="d-flex justify-content-center"
+              />} >
+            </Route>
+            <Route
+              exact path="/login"
+              element={<Login />} >
+            </Route>
+            <Route
+              exact path="/singup"
+              element={<Singup />} >
+            </Route>
 
-              </Routes>
-            </Container>
-          </Router>
-        </div>
-      </UserNameContext.Provider>
-    </LoginContext.Provider >
+          </Routes>
+        </Container>
+      </Router>
+    </div>
   );
 }
 

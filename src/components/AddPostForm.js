@@ -2,13 +2,15 @@ import { React, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from "react-bootstrap/Form";
-import { UserNameContext } from '../Helper/Context';
+import { authContext } from '../Context/AuthContext';
+import { postContext } from '../Context/PostContext';
 import axios from 'axios';
 import cookies from 'react-cookies';
 import Swal from 'sweetalert2';
 
 function AddPostForm(props) {
-    const { userName } = useContext(UserNameContext);
+    const { userName } = useContext(authContext);
+    const { getPostComment } = useContext(postContext);
     const nullValue = undefined;
     const handleCreatePost = async (e) => {
         e.preventDefault();
@@ -31,7 +33,7 @@ function AddPostForm(props) {
                 Authorization: `Bearer ${token}`
             }
         }).then(res => {
-            props.getPostComment();
+            getPostComment();
             props.handleClose();
             Swal.fire(
                 'Added The Post Successfully :)',
