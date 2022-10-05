@@ -102,7 +102,7 @@ const AuthContextProvider = (props) => {
 
         const capabilitieUser = cookies.load('capabilities');
 
-        if (!capabilitieUser.includes(action)) {
+        if (capabilitieUser === undefined || !capabilitieUser.includes(action)) {
             return false;
         }
 
