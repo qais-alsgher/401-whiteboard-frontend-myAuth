@@ -1,27 +1,19 @@
-import { createContext, useState } from "react";
+import { createContext, useReducer } from "react";
 import base64 from 'base-64';
-import axios from 'axios';
-import cookies from 'react-cookies';
-
+import { AuthReducer } from "../Reducers/authReducer";
+import { loginUser, singupUser, logoutUser } from '../actions/authAction';
+import { initialState } from '../config/initials';
 
 export const authContext = createContext();
 
 
 const AuthContextProvider = (props) => {
+    const [user, dispash] = useReducer(AuthReducer, initialState);
 
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [showInvalid, setShowInvalid] = useState(false);
-    const [messageInv, setMessageInv] = useState("");
-    const [userName, setUserName] = useState("");
-    // const [capabilities, setCapabilities] = useState();
-
-
-
-    // login to website send data for bisic auth 
     const handleLogin = async (e) => {
         e.preventDefault();
-        setShowInvalid(false);
-        console.log(e.target.email.value);
+        // setShowInvalid(false);
+        // console.log(e.target.email.value);
         const data = {
             email: e.target.email.value,
             password: e.target.password.value
@@ -29,32 +21,13 @@ const AuthContextProvider = (props) => {
 
         const encodedHeader = base64.encode(`${data.email}:${data.password}`);
 
-        await axios.post(`https://post-my-auth.herokuapp.com/login`, {}, {
-            headers: {
-                Authorization: `Basic ${encodedHeader}`
-            }
-        }).then(res => {
-            console.log(res.data);
-            setLoggedIn(true);
-            setUserName(res.data.userName);
-            cookies.save('token', res.data.token);
-            cookies.save('userName', res.data.userName);
-            cookies.save('userId', res.data.id);
-            cookies.save('role', res.data.role);
-            cookies.save('capabilities', JSON.stringify(res.data.capabilities));
-            setShowInvalid(false);
-        }).catch(err => {
-            console.log(err);
-            setMessageInv(err.response.data);
-            setShowInvalid(true);
-        })
-
+        loginUser(dispash, encodedHeader);
     }
 
     // logout when logout remove token and and change state login 
     const handleLogOut = () => {
-        cookies.remove('token');
-        setLoggedIn(false);
+
+        logoutUser(dispash);
     }
 
 
@@ -67,40 +40,14 @@ const AuthContextProvider = (props) => {
             password: e.target.password.value,
             role: e.target.role.value
         }
-        await axios.post('https://post-my-auth.herokuapp.com/singup', data).then(res => {
-            console.log(res);
-            setLoggedIn(true);
-            setUserName(res.data.userName);
-            cookies.save('token', res.data.token);
-            cookies.save('userName', res.data.userName);
-            cookies.save('userId', res.data.id);
-            cookies.save('role', res.data.role);
-            cookies.save('capabilities', JSON.stringify(res.data.capabilities));
-        }).catch(e => console.log(e))
+        singupUser(dispash, data);
 
     }
 
-
-    // to check have token in cookies if have loggedIn directly
-    const checkToken = () => {
-        const name = cookies.load('userName');
-        const token = cookies.load('token');
-        // const capabilitieUser = cookies.load('capabilities');
-        // console.log(capabilitieUser);
-        if (token) {
-            setLoggedIn(true);
-            setUserName(name);
-            // var capabilitieUser = cookies.load('capabilities');
-            // setCapabilities(cookies.load('capabilities'));
-        }
-        // setCapabilities(5);
-        // console.log(capabilities);
-        // console.log(capabilitieUser);
-    }
 
     const canDo = (action) => {
 
-        const capabilitieUser = cookies.load('capabilities');
+        const capabilitieUser = user.capabilities;
 
         if (capabilitieUser === undefined || !capabilitieUser.includes(action)) {
             return false;
@@ -111,7 +58,7 @@ const AuthContextProvider = (props) => {
 
 
 
-    const value = { loggedIn, showInvalid, messageInv, userName, handleLogin, handleLogOut, checkToken, handSingup, canDo };
+    const value = { user, handleLogin, handleLogOut, handSingup, canDo };
 
     return (
         <authContext.Provider value={value}>

@@ -1,20 +1,19 @@
-import { React, useState, useContext } from 'react';
+import { React, useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import LogoutButton from './components/LogoutButton';
 import { authContext } from './Context/AuthContext';
+import { postContext } from './Context/PostContext';
 import AddPostForm from './components/AddPostForm';
 import PageNotAuth from './components/PageNotAuth';
 import SolveProblems from './image/SolveProblems.jpg';
 
 
 function Header(props) {
-    const { loggedIn } = useContext(authContext);
+    const { user } = useContext(authContext);
+    const { show, handleClose, handleShow, setShow } = useContext(postContext);
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
 
     return (
@@ -30,13 +29,13 @@ function Header(props) {
                             <button onClick={handleShow} className="btnt p-lg-3">Add Post</button>
                         </Nav>
                         <Nav className=" d-flex justify-content-end">
-                            {!loggedIn &&
+                            {!user.loggedIn &&
                                 <div>
                                     <Nav.Link href="/singup" className='btn  rounded-pill login ms-2'>Singup</Nav.Link>
                                     <Nav.Link href="/login" className='btn  rounded-pill login'>Login</Nav.Link>
                                 </div>
                             }
-                            {loggedIn &&
+                            {user.loggedIn &&
                                 <LogoutButton />
                             }
 
@@ -45,7 +44,7 @@ function Header(props) {
                 </Container>
             </Navbar>
             {
-                loggedIn &&
+                user.loggedIn &&
                 <AddPostForm
                     handleClose={handleClose}
                     show={show}
@@ -53,7 +52,7 @@ function Header(props) {
                 />
             }
             {
-                !loggedIn &&
+                !user.loggedIn &&
                 <PageNotAuth
                     handleClose={handleClose}
                     show={show}

@@ -6,10 +6,13 @@ import { FaComment, FaEyeSlash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import UpdatePost from './UpdatePost';
 import DefaultImage from '../image/DefaultImage.jpg';
+import { postContext } from '../Context/PostContext';
 
 function CaedPost(props) {
 
-    const { loggedIn, userName, canDo } = useContext(authContext);
+    const { user, canDo } = useContext(authContext);
+    const { handleDelete } = useContext(postContext);
+
     const [showComment, setShowComent] = useState(false);
     const [showEditPost, setShowEditPost] = useState(false);
     const [postEditId, setPostEditId] = useState("");
@@ -41,11 +44,11 @@ function CaedPost(props) {
                     <Card.Text className='post-name'>{props.post.postAouthr}
 
                         <>
-                            {(canDo('update') || props.post.postAouthr === userName) && loggedIn &&
+                            {(canDo('update') || props.post.postAouthr === user.userName) && user.loggedIn &&
                                 <MdEdit className='edit-post-icon' onClick={() => { handleShowEditPost(props.post.id) }} />
                             }
-                            {(canDo('delete') || props.post.postAouthr === userName) && loggedIn &&
-                                <button onClick={() => { props.handleDelete(props.post.id) }}>X</button>
+                            {(canDo('delete') || props.post.postAouthr === user.userName) && user.loggedIn &&
+                                <button onClick={() => { handleDelete(props.post.id) }}>X</button>
                             }
                         </>
                     </Card.Text>
@@ -62,7 +65,7 @@ function CaedPost(props) {
                     <hr />
                 </Card.Body>
                 {
-                    (loggedIn && !showComment) &&
+                    (user.loggedIn && !showComment) &&
                     <FaComment className='icon-comment' onClick={hanleShow} />
 
                 }
@@ -75,14 +78,14 @@ function CaedPost(props) {
                 }
 
                 {
-                    !loggedIn &&
+                    !user.loggedIn &&
                     <p className='commentNon'>Pls Login To Can Comment</p>
                 }
                 {
                     showComment &&
                     <AddCommentForm
                         commentPost={props.post}
-                        name={userName}
+                        name={user.userName}
                     />
                 }
             </Card >

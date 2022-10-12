@@ -2,49 +2,10 @@ import { React, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from "react-bootstrap/Form";
-import { authContext } from '../Context/AuthContext';
 import { postContext } from '../Context/PostContext';
-import axios from 'axios';
-import cookies from 'react-cookies';
-import Swal from 'sweetalert2';
 
 function AddPostForm(props) {
-    const { userName } = useContext(authContext);
-    const { getPostComment } = useContext(postContext);
-    const nullValue = undefined;
-    const handleCreatePost = async (e) => {
-        e.preventDefault();
-
-        const id = cookies.load('userId');
-        const token = cookies.load('token');
-
-        const newPost = {
-            postAouthr: userName,
-            postTitle: e.target.titlePost.value,
-            postContent: e.target.ContentPost.value,
-            postImge: e.target.imgUrl.value,
-            aouthrImage: nullValue,
-            userId: id
-        }
-        console.log(newPost);
-
-        await axios.post(`https://post-my-auth.herokuapp.com/Post`, newPost, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then(res => {
-            getPostComment();
-            props.handleClose();
-            Swal.fire(
-                'Added The Post Successfully :)',
-                '',
-                'success'
-            )
-
-        }).catch(e => {
-            console.log(e.message || e);
-        })
-    };
+    const { handleCreatePost } = useContext(postContext);
 
     return (
         <div >
