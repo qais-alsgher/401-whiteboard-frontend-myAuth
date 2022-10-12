@@ -3,16 +3,16 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from "react-bootstrap/Form";
 import axios from 'axios';
-import cookies from 'react-cookies';
 import Swal from 'sweetalert2';
 import { postContext } from '../Context/PostContext';
+import { authContext } from '../Context/AuthContext';
 
 function UpdatePost(props) {
     const { getPostComment } = useContext(postContext);
+    const { user } = useContext(authContext);
 
     const handleUpdatePost = async (e) => {
         e.preventDefault();
-        const token = cookies.load('token');
 
         const editPost = {
             postTitle: e.target.titlePost.value,
@@ -22,7 +22,7 @@ function UpdatePost(props) {
 
         await axios.put(`https://post-my-auth.herokuapp.com/post/${props.id}`, editPost, {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${user.token}`
             }
         }).then((res) => {
             getPostComment();

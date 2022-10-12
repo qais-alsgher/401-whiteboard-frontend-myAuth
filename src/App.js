@@ -6,7 +6,7 @@ import Header from './Header';
 import Container from 'react-bootstrap/Container';
 import Login from './components/Login';
 import Singup from './components/Singup';
-import { authContext } from './Context/AuthContext';
+// import { authContext } from './Context/AuthContext';
 import { postContext } from './Context/PostContext';
 import {
   BrowserRouter as Router,
@@ -16,13 +16,13 @@ import {
 
 function App() {
 
-  const { checkToken } = useContext(authContext);
+  // const { checkToken } = useContext(authContext);
   const { getPostComment } = useContext(postContext);
 
   useEffect(() => {
     getPostComment();
-    checkToken();
-  });
+    // checkToken();
+  },[]);
 
 
   return (

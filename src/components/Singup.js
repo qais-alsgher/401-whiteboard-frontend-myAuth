@@ -4,14 +4,14 @@ import Form from "react-bootstrap/Form";
 import { authContext } from '../Context/AuthContext';
 
 function Singup() {
-    const { loggedIn, handSingup, userName } = useContext(authContext);
+    const { user, handSingup } = useContext(authContext);
 
 
     return (
         <div className="row d-flex justify-content-center ">
             <div className="col-lg-6  col-md-5  position-absolute top-50 translate-middle-y ">
 
-                {!loggedIn &&
+                {!user.loggedIn &&
                     <>
                         <h2 className='text-center text-white mb-5'>Singup</h2>
                         <Form onSubmit={handSingup}>
@@ -28,16 +28,23 @@ function Singup() {
                                         <option value='user' selected="selected">user</option>
                                     </Form.Select>
                                 </Form.Group>
-                                <Button onSubmit={handSingup} data-testid="singup-submit" className="btn  rounded-pill login" type="submit" required>
-                                    Singup
-                                </Button>
+                                {user.singupReqest &&
+                                    <Button className="btn  rounded-pill login" type="submit" >
+                                        Singup
+                                    </Button>
+                                }
+                                {!user.singupReqest &&
+                                    <Button onSubmit={handSingup} data-testid="singup-submit" className="btn  rounded-pill login" type="submit">
+                                        Singup
+                                    </Button>
+                                }
                             </fieldset>
                         </Form>
                     </>
                 }
-                {loggedIn &&
+                {user.loggedIn &&
                     <div>
-                        <h2 className='text-white'>welcome {userName} To Solve-Problems website 🎉</h2>
+                        <h2 className='text-white'>welcome {user.userName} To Solve-Problems website 🎉</h2>
                     </div>
                 }
 

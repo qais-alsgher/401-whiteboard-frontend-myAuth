@@ -8,7 +8,7 @@ import NotAutToDelete from './NotAutToDelete';
 import cookies from 'react-cookies';
 
 function CommentForPost(props) {
-    const { userName } = useContext(authContext);
+    const { user } = useContext(authContext);
     const { getPostComment } = useContext(postContext);
     const [showNotAD, setShowNotAD] = useState(false);
     const [owner, setOwner] = useState("");
@@ -18,7 +18,7 @@ function CommentForPost(props) {
 
     // to delte comment
     const handleDlete = async (id, commentAuther) => {
-        if (userName === commentAuther) {
+        if (user.userName === commentAuther) {
             const token = cookies.load('token');
 
             await axios.delete(`https://post-my-auth.herokuapp.com/comment/${id}`, {
@@ -44,7 +44,7 @@ function CommentForPost(props) {
 
 
     const handleShowUpdate = (id, commentAuther) => {
-        if (userName === commentAuther) {
+        if (user.userName === commentAuther) {
             setShowUpdate(true);
             setUpdateId(id);
         } else {
