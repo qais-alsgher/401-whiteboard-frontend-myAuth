@@ -13,7 +13,7 @@ const AuthContextProvider = (props) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         // setShowInvalid(false);
-        // console.log(e.target.email.value);
+        console.log(e.target.email.value);
         const data = {
             email: e.target.email.value,
             password: e.target.password.value
@@ -40,6 +40,7 @@ const AuthContextProvider = (props) => {
             password: e.target.password.value,
             role: e.target.role.value
         }
+
         singupUser(dispash, data);
 
     }

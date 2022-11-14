@@ -3,7 +3,7 @@ import { useEffect, useContext } from 'react';
 import Post from './components/Post';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './Header';
-import Container from 'react-bootstrap/Container';
+import { Container } from '@chakra-ui/react';
 import Login from './components/Login';
 import Singup from './components/Singup';
 import { postContext } from './Context/PostContext';
@@ -19,14 +19,14 @@ function App() {
 
   useEffect(() => {
     getPostComment();
-  });
+  }, [getPostComment]);
 
 
   return (
     <div className="App">
       <Router>
         <Header />
-        <Container>
+        <Container maxW='6xl' pb='8'>
           <Routes>
             <Route
               exact path="/"

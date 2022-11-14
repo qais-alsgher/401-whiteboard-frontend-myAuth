@@ -13,14 +13,3 @@ export const initialState = {
     token: token,
     data: userInfo
 }
-
-// export const initialState = {
-//     loadingReqest: false,
-//     loggedIn: false,
-//     showInvalid: false,
-//     messageInv: '',
-//     userName: '',
-//     capabilities: [],
-//     singupReqest: false,
-//     token: token
-// }

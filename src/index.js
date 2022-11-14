@@ -5,15 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AuthContextProvider from './Context/AuthContext';
 import PostContextProvider from './Context/PostContext';
-
+import { ChakraProvider } from '@chakra-ui/react'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <PostContextProvider>
-        <App />
-      </PostContextProvider>
-    </AuthContextProvider>
+    <ChakraProvider>
+      <AuthContextProvider>
+        <PostContextProvider>
+          <App />
+        </PostContextProvider>
+      </AuthContextProvider>
+    </ChakraProvider>
   </React.StrictMode>
 );
 

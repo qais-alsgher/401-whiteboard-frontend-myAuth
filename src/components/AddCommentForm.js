@@ -2,8 +2,8 @@ import { React, useState, useContext } from 'react';
 import axios from 'axios';
 import CommentForPost from './CommentForPost';
 import { MdSend } from "react-icons/md";
-import cookies from "react-cookies";
-import { postContext } from '../Context/PostContext'
+import { postContext } from '../Context/PostContext';
+import { Button, Input, Box, HStack } from '@chakra-ui/react';
 
 function AddCommentForm(props) {
 
@@ -16,25 +16,26 @@ function AddCommentForm(props) {
 
     const handleCreateComment = async (e) => {
         e.preventDefault();
-        const id = cookies.load('userId');
-        const token = cookies.load('token');
-
+        const data = JSON.parse(localStorage.getItem('curentUser'));
         const newComment = {
             commentAuther: props.name,
             commentContent: content,
             postId: props.commentPost.id,
             autherCommentImage: props.picture,
-            userId: +id
+            userId: +data.id
         }
 
-        let a = await axios.post(`https://post-my-auth.herokuapp.com/comment`, newComment, {
+        axios.post(`https://post-my-auth.herokuapp.com/comment`, newComment, {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${data.token}`
             }
-        });
-        console.log(a);
-        getPostComment();
-        setContent('');
+        }).then(res => {
+            getPostComment();
+            setContent('');
+        }).catch(e => {
+            console.log(e.message || e);
+        }
+        )
     };
 
     return (
@@ -42,23 +43,26 @@ function AddCommentForm(props) {
             {
                 props.commentPost.comments.map((ele, index) => {
                     return (
-                        <div key={index}>
+                        <Box key={index}>
                             < CommentForPost
                                 comment={ele}
                             />
-                        </div>
+                        </Box>
                     )
                 })
             }
-            <form onSubmit={handleCreateComment} className="formComent">
-                <input type="text"
-                    onChange={handleChange}
-                    value={content}
-                    placeholder='Add Comment'
-                />
-                <button onSubmit={handleCreateComment}>
-                    <MdSend />
-                </button>
+            {/* className="formComent" */}
+            <form onSubmit={handleCreateComment}  >
+                <HStack>
+                    <Input type="text"
+                        onChange={handleChange}
+                        value={content}
+                        placeholder='Add Comment'
+                    />
+                    <Button type='submit'>
+                        <MdSend />
+                    </Button>
+                </HStack>
 
             </form>
         </div>
