@@ -1,39 +1,4 @@
 
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 /* .post{
   s
 } */
@@ -47,55 +12,56 @@ margin: 0;
 
 :root{
   --color-text:#F1F1F1;
-  --color-black:#100F0F;
+  --color-black:white;
   --color-blue:#0F3D3E;
   --color-white:#E2DCC8;
 }
-body{
+/* body{
   background-color: var(--color-black)!important;
   color: var(--color-text);
-}
-.all-modal{
+} */
+/* .all-modal{
   color: var(--color-text);
-}
+} */
 /* syle navbar */
-.navbar{
+/* .navbar{
 background-color: var(--color-blue)!important;
-}
+} */
 
-.logo-nav{
+/* .logo-nav{
   width: 100px;
-  height: 50px;
+  height: 50px; 
   object-fit: contain;
-}
+} */
 
-.logo-nav:hover{
+/* .logo-nav:hover{
   transition-duration: 0.7s;
   transform: rotate(1turn);
-}
+} */
 
-.postCard{
+/* .postCard{
 justify-content: center!important;
-}
+} */
 
-.btnt{
+/* .btnt{
   background: none!important;
   border: none;
   padding: 0!important;
   text-decoration: none;
   color: var(--color-text)!important;
-}
-.header-post{
+} */
+/* .header-post{
   color: var(--color-text)!important;
-}
-.btnt:hover ,.header-post:hover{
+} */
+/* .btnt:hover ,.header-post:hover{
   color:var(--color-black)!important;
-}
+} */
 
 .login{
   color: var(--color-text)!important;
   float:right!important;
   background-color:#61dafb!important;
+  border-radius: 20px!important;
 }
 
 .login:hover{
@@ -103,57 +69,73 @@ justify-content: center!important;
   background-color:#76d8f3!important;
 }
 
-
-
+.post-imge{
+  width: 100%;
+  height: 550px;
+  object-fit: cover;
+}
+.imge-owner{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.edit-comment,.delete-comment{
+  width: 20px;
+  height: 30px;
+  }
+  
+  .delete-comment{
+    width: 20px;
+    height: 30px;
+  }
+  .delete-comment:hover{
+  color: red!important;
+  cursor: pointer;
+  }
+  
+  .edit-comment:hover{
+    color:var(--color-blue);
+    cursor: pointer;
+  }
 /* style post */
-.post{
+/* .post{
   text-align: start!important;
   margin: 20px 0!important;
   background-color: var(--color-blue)!important;
   color:var(--color-text)
-}
+} */
 
-.post img{
-  width: 100%;
-  height: 350px;
-  object-fit: cover;
-}
-.post-name{
+/* .post-name{
   flex: 1;
   padding-left: 10px;
-}
+} */
 
-.post-text{
+/* .post-text{
   padding-left:15px ;
-}
+} */
 
-.post-text-Noimg{
+/* .post-text-Noimg{
 text-align: center!important;
-}
+} */
 
-.body-card-post{
+/* .body-card-post{
   padding-bottom: 0!important;
-}
+} */
 
-.imge-owner-post{
-  width: 40px!important;
-  height: 40px!important;
-  border-radius: 50%;
-}
-.owner-post-row{
+/* .owner-post-row{
 display: flex;
 align-items: center;
 margin: 15px 0;
 padding-left: 10px;
-}
+} */
 
 /* style comment */
 
-.commentNon{
+/* .commentNon{
   text-align: center;
-}
+} */
 
-.comment-row{
+/* .comment-row{
   display:flex;
   margin-left: 20px;
 }
@@ -170,9 +152,9 @@ line-break: anywhere;
 .row-poenter-comment{
   width: 25px;
   height: 22px;
-}
+} */
 
-.formComent button{
+/* .formComent button{
   background: #76d8f3;
 }
 
@@ -194,9 +176,9 @@ line-break: anywhere;
   border: none;
   padding: 0!important;
   
-}
+} */
 
-.icon-comment{
+/* .icon-comment{
 margin: auto!important;
 width: 100px!important;
 height: 40px;
@@ -207,9 +189,9 @@ margin-bottom: 5px!important;
 .icon-comment:hover{
   transition-duration: 0.5s;
   transform: rotate(360deg);
-}
+} */
 
-.icon-hiden{
+/* .icon-hiden{
   display: flex;
   justify-content: flex-end;
   padding-right:16px ;
@@ -217,77 +199,53 @@ margin-bottom: 5px!important;
 .icon-hiden:hover{
   cursor: pointer;
   color:var(--color-black);
-}
+} */
 
 
-.comment-owner{
+/* .comment-owner{
   display: flex;
   align-items:flex-end;
-}
+} */
 
-.imge-comment{
-width: 40px!important;
-height: 40px!important;
-border-radius: 50%;
-}
-
-.edit-comment, .delete-comment{
-width: 20px;
-height: 30px;
-}
-
-.delete-comment{
-  width: 20px;
-  height: 30px;
-}
-.delete-comment:hover{
-color: red!important;
-cursor: pointer;
-}
-
-.edit-comment:hover{
-  color:var(--color-black);
-  cursor: pointer;
-}
 
 
 /* style form add post */
 
-.formAddPost{
+/* .formAddPost{
  background-color: var(--color-blue)!important;
-}
+} */
 
-#titlePost,#imgUrl,#ContentPost{
+/* #titlePost,#imgUrl,#ContentPost{
   color: var(--color-black)!important;
-}
+} */
 
-.post-name button{
+/* .post-name button{
   float: right;
   padding-right:16px ;
   background: none;
   border: none;
-}
+} */
 
-.post-name button:hover{
+/* .post-name button:hover{
   transition-duration: 0.5s;
   transform: rotate(1turn);
   color: red!important;
   cursor: pointer;
-}
+} */
 
 .edit-post-icon{
   width: 20px;
   height: 30px;
 }
 
-.edit-post-icon:hover{
-  color:var(--color-black);
+/* .edit-post-icon:hover{
+  color:var(--color-blue);
   cursor: pointer;
-}
+} */
 
 /* style not authorize modale */
 
-.no-auth{
+/* .no-auth{
   background-color: var(--color-blue)!important;
 }
 
@@ -297,7 +255,7 @@ cursor: pointer;
 
 .no-auth button:hover{
   color: var(--color-black)!important;
-}
+} */
 
 /* style login form  */
 
