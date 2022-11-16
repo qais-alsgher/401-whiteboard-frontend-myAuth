@@ -9,7 +9,7 @@ export const initialState = {
     messageInv: '',
     userName: userInfo ? userInfo.userName : '',
     capabilities: userInfo ? userInfo.capabilities : '',
-    singupReqest: false,
+    signupReqest: false,
     token: token,
     data: userInfo
 }

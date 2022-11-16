@@ -59,9 +59,14 @@ justify-content: center!important;
 
 .login{
   color: var(--color-text)!important;
+  width: 80px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   float:right!important;
-  background-color:#61dafb!important;
-  border-radius: 20px!important;
+  background-color:#53c4e4!important;
+  border-radius:30px!important;
 }
 
 .login:hover{

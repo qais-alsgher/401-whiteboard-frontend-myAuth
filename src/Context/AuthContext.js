@@ -1,7 +1,7 @@
 import { createContext, useReducer } from "react";
 import base64 from 'base-64';
 import { AuthReducer } from "../Reducers/authReducer";
-import { loginUser, singupUser, logoutUser } from '../actions/authAction';
+import { loginUser, signupUser, logoutUser } from '../actions/authAction';
 import { initialState } from '../config/initials';
 
 export const authContext = createContext();
@@ -32,7 +32,7 @@ const AuthContextProvider = (props) => {
 
 
     // create new user 
-    const handSingup = async (e) => {
+    const handSignup = async (e) => {
         e.preventDefault();
         const data = {
             userName: e.target.name.value,
@@ -41,7 +41,7 @@ const AuthContextProvider = (props) => {
             role: e.target.role.value
         }
 
-        singupUser(dispash, data);
+        signupUser(dispash, data);
 
     }
 
@@ -59,7 +59,7 @@ const AuthContextProvider = (props) => {
 
 
 
-    const value = { user, handleLogin, handleLogOut, handSingup, canDo };
+    const value = { user, handleLogin, handleLogOut, handSignup, canDo };
 
     return (
         <authContext.Provider value={value}>

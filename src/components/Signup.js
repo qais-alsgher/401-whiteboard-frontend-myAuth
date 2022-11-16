@@ -9,19 +9,15 @@ import {
     Alert,
     AlertIcon,
     AlertTitle,
+    Select,
     Text
 } from '@chakra-ui/react';
+function Signup() {
+    const { user, handSignup } = useContext(authContext);
 
 
-function Login() {
-
-    const { user, handleLogin } = useContext(authContext);
-
-    // console.log(user);
-    // console.log(user.showInvalid);
-    // console.log(user.messageInv);
     return (
-        <Box>
+        <Box alignItems='center' justifyContent='center' >
             {!user.loggedIn &&
                 <Box>
                     <Text align='center'
@@ -31,23 +27,27 @@ function Login() {
                         bgGradient='linear(to-r,#0F3D3D,#53c4e4)'
                         bgClip='text'
                     >
-                        Login
+                        Signup
                     </Text>
-
-                    <form onSubmit={handleLogin}>
+                    <form onSubmit={handSignup}>
+                        <FormLabel>Username</FormLabel>
+                        <Input type='text' id="name" pattern="^[a-zA-Z ]*$" required mb='5' />
                         <FormLabel>Email address</FormLabel>
-                        <Input type='email' id="email" mb='5' />
+                        <Input type='email' id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required mb='5' />
                         <FormLabel>Password</FormLabel>
                         <Input type='Password' id="password" mb='5' />
-
-                        {user.loginReqest &&
-                            <Button disabled variant={['base']} type="submit">
-                                Login
+                        <Select id='role' name='role' mb='5' defaultValue='user'>
+                            <option value='user'>user</option>
+                            <option value='admin' selected="selected">admin</option>
+                        </Select>
+                        {user.signupReqest &&
+                            <Button variant={['base']} type="submit" >
+                                Signup
                             </Button>
                         }
-                        {!user.loginReqest &&
-                            <Button type="submit" variant={['base']} id='submit' data-testid="login-submit">
-                                Login
+                        {!user.signupReqest &&
+                            <Button onSubmit={handSignup} data-testid="signup-submit" variant={['base']} type="submit">
+                                Signup
                             </Button>
                         }
 
@@ -63,15 +63,14 @@ function Login() {
             }
             {
                 user.loggedIn &&
-                <Heading as='h1' size='4xl' noOfLines={3} mt='30%' p='10'>
-                    welcome {user.userName} To Solve-Problems website 🎉
+                <Heading as='h1' size='3xl' noOfLines={3} mt='30%' p='10'>
+                    Welcome {user.userName} To Solve-Problems Website 🎉
                 </Heading>
             }
-        </Box>
+        </Box >
+
 
     );
-
-
 }
 
-export default Login;
+export default Signup;

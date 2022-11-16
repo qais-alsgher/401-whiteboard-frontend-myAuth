@@ -28,19 +28,19 @@ export const AuthReducer = (state, action) => {
                 showInvalid: true,
                 loggedIn: false,
             }
-        case actiontype.REQUEST_SINGUP:
+        case actiontype.REQUEST_SIGNUP:
             return {
                 ...state,
-                singupReqest: true
+                signupReqest: true
             }
 
-        case actiontype.SINGUP_SUCCESS:
+        case actiontype.SIGNUP_SUCCESS:
             return {
                 ...state,
                 loggedIn: true,
                 userName: action.payload.userName,
                 token: action.payload.token,
-                singupReqest: false,
+                signupReqest: false,
                 data: action.payload
             }
 
