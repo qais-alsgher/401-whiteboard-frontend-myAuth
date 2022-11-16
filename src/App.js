@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './Header';
 import { Container } from '@chakra-ui/react';
 import Login from './components/Login';
-import Singup from './components/Singup';
+import Signup from './components/Signup';
 import { postContext } from './Context/PostContext';
 import {
   BrowserRouter as Router,
@@ -39,8 +39,8 @@ function App() {
               element={<Login />} >
             </Route>
             <Route
-              exact path="/singup"
-              element={<Singup />} >
+              exact path="/signup"
+              element={<Signup />} >
             </Route>
 
           </Routes>

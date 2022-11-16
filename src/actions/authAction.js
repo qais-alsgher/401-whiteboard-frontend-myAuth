@@ -36,12 +36,12 @@ export const loginUser = async (dispash, payload) => {
 }
 
 
-export const singupUser = async (dispash, payload) => {
+export const signupUser = async (dispash, payload) => {
     try {
-        dispash({ type: actiontype.REQUEST_SINGUP });
+        dispash({ type: actiontype.REQUEST_SIGNUP });
         await axios.post('https://post-my-auth.herokuapp.com/singup', payload).then(res => {
             console.log(res);
-            dispash({ type: actiontype.SINGUP_SUCCESS, payload: res.data });
+            dispash({ type: actiontype.SIGNUP_SUCCESS, payload: res.data });
             localStorage.setItem('curentUser', JSON.stringify(res.data));
             localStorage.setItem('token', res.data.token);
             // setLoggedIn(true);

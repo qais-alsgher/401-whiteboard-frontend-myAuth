@@ -5,18 +5,28 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AuthContextProvider from './Context/AuthContext';
 import PostContextProvider from './Context/PostContext';
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, extendTheme, ColorModeScript } from '@chakra-ui/react';
+import myTheme from './theme/index';
+
+const config = {
+  initialColorMode: 'light',
+  useSystemColorMode: false,
+};
+
+const theme = extendTheme({ config });
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ChakraProvider>
+    <ChakraProvider theme={myTheme}>
       <AuthContextProvider>
         <PostContextProvider>
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <App />
         </PostContextProvider>
       </AuthContextProvider>
     </ChakraProvider>
-  </React.StrictMode>
+  </React.StrictMode >
 );
 
 // If you want to start measuring performance in your app, pass a function

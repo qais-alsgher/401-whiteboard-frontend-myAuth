@@ -6,7 +6,7 @@ function LogoutButton() {
     const { handleLogOut } = useContext(authContext);
 
     return (
-        <Button className='login' onClick={() => { handleLogOut() }}>
+        <Button variant={['base']} onClick={() => { handleLogOut() }}>
             Log Out
         </Button>
     );

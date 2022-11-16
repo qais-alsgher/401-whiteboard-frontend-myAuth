@@ -88,7 +88,7 @@ function CommentForPost(props) {
                 {!showUpdate &&
                     <HStack pl='8' >
                         <BsArrowReturnRight fontSize='20' />
-                        <Text fontSize='18'>{props.comment.commentContent}</Text>
+                        <Text variant={['sm', 'md', 'lg', 'base']}>{props.comment.commentContent}</Text>
                     </HStack>
                 }
             </VStack >
@@ -116,42 +116,6 @@ function CommentForPost(props) {
                 owner={owner} />
         </Box >
 
-
-
-        // <div className='coment-post'>
-        //     <div className='comment-owner' >
-        //         <img className='imge-comment' src={props.comment.autherCommentImage} alt="imge owner comment" />
-        //         <h6>{props.comment.commentAuther}</h6>
-        //         <MdEdit className='edit-comment' onClick={() => { handleShowUpdate(props.comment.id, props.comment.commentAuther) }} />
-        //         <MdDelete className='delete-comment' onClick={() => { handleDlete(props.comment.id, props.comment.commentAuther) }} />
-        //     </div>
-        //     {!showUpdate &&
-        //         <div className='comment-row'>
-        //             <BsArrowReturnRight className='row-poenter-comment' />
-        //             <p>{props.comment.commentContent}</p>
-        //         </div>
-        //     }
-        //     {showUpdate &&
-        //         <form onSubmit={handleUpdate} className="formComent">
-        //             <BsArrowReturnRight className='row-poenter-comment' />
-        //             <input type="text"
-        //                 onChange={handleChange}
-        //                 value={updateValue}
-        //                 placeholder='Edit Comment'
-        //             />
-        //             <button onSubmit={handleUpdate}>
-        //                 <MdSend />
-        //             </button>
-
-        //         </form>
-
-        //     }
-
-        //     <NotAutToDelete
-        //         show={showNotAD}
-        //         handleClose={handleClose}
-        //         owner={owner} />
-        // </div >
     )
 }
 

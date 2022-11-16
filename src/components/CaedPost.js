@@ -1,5 +1,4 @@
 import { React, useState, useContext } from 'react';
-// import Card from 'react-bootstrap/Card';
 import AddCommentForm from './AddCommentForm';
 import { authContext } from '../Context/AuthContext';
 import { FaComment, FaEyeSlash } from "react-icons/fa";
@@ -20,7 +19,6 @@ function CaedPost(props) {
 
 
 
-
     const hanleShow = () => {
         setShowComent(true);
     }
@@ -38,8 +36,7 @@ function CaedPost(props) {
     }
 
     return (
-        // create card for each post
-        <Box border='1px' mb='5' p='4' borderRadius='10'>
+        <Box border='1px' mb='6' p='4' borderRadius='10'>
             <HStack spacing={4} borderColor='gray.200' >
                 <Flex alignItems={'center'}>
                     <Box>
@@ -65,16 +62,16 @@ function CaedPost(props) {
                     }
                 </Box>
             </HStack>
-            <VStack spacing={4} align={props.post.postImge ? 'flex-start' : 'flex-center'} >
-                <Text >{props.post.postTitle}</Text>
+            <VStack spacing={4} align='flex-start' >
+                <Text mt='5' fontWeight='bold' variant={['sm', 'md', 'lg', 'base']}>{props.post.postTitle}</Text>
                 <Box w='100%'>
                     <img
-                        src={props.post.postImge ? props.post.postImge : DefaultImage}
+                        src={props.post.postImge.startsWith('http') ? props.post.postImge : DefaultImage}
                         alt="imge post"
                         className="post-imge"
                     />
                 </Box>
-                <Text>{props.post.postContent}</Text>
+                <Text mb='5' variant={['sm', 'md', 'lg', 'base']}>{props.post.postContent}</Text>
             </VStack>
             {
                 <Box align='center'
@@ -90,6 +87,7 @@ function CaedPost(props) {
                         <FaComment onClick={hanleShow}
                             fontSize='30px'
                             mb='5'
+                            mt='5'
 
                         />
                     }
@@ -98,6 +96,7 @@ function CaedPost(props) {
             {showComment &&
 
                 <Flex
+                    mb='5'
                     justifyContent='flex-end'
                     pr='16px'
                     _hover={{
@@ -112,7 +111,7 @@ function CaedPost(props) {
                 !user.loggedIn &&
                 <Box pb='3' align='center'>
                     <hr style={{ margin: '15px' }} />
-                    <Text>Pls Login To Can Comment</Text>
+                    <Text variant={['sm', 'md', 'lg', 'base']}>Pls Login To Can Comment</Text>
                 </Box>
             }
             {
@@ -130,65 +129,6 @@ function CaedPost(props) {
             />
 
         </Box >
-        // <div>
-        //     <Card className="post">
-        //         <div className='owner-post-row'>
-        //             <img className="imge-owner-post" src={props.post.aouthrImage} alt="imge owner the post" />
-        //             <Card.Text className='post-name'>{props.post.postAouthr}
-
-        //                 <>
-        //                     {(canDo('update') || props.post.postAouthr === user.userName) && user.loggedIn &&
-        //                         <MdEdit className='edit-post-icon' onClick={() => { handleShowEditPost(props.post.id) }} />
-        //                     }
-        //                     {(canDo('delete') || props.post.postAouthr === user.userName) && user.loggedIn &&
-        //                         <button onClick={() => { handleDelete(props.post.id) }}>X</button>
-        //                     }
-        //                 </>
-        //             </Card.Text>
-        //         </div>
-        //         <Card.Title className={props.post.postImge ? 'post-text' : 'post-text-Noimg'}>{props.post.postTitle}</Card.Title>
-        //         {props.post.postImge &&
-
-        //             <Card.Img variant="top" src={props.post.postImge ? props.post.postImge : DefaultImage} />
-        //         }
-        //         <Card.Body className='body-card-post'>
-        //             <Card.Text className='post-text'>
-        //                 {props.post.postContent}
-        //             </Card.Text>
-        //             <hr />
-        //         </Card.Body>
-        //         {
-        //             (user.loggedIn && !showComment) &&
-        //             <FaComment className='icon-comment' onClick={hanleShow} />
-
-        //         }
-
-        //         {
-        //             showComment &&
-        //             <div className='icon-hiden' >
-        //                 <FaEyeSlash onClick={handleHidleComment} />
-        //             </div>
-        //         }
-
-        //         {
-        //             !user.loggedIn &&
-        //             <p className='commentNon'>Pls Login To Can Comment</p>
-        //         }
-        //         {
-        //             showComment &&
-        //             <AddCommentForm
-        //                 commentPost={props.post}
-        //                 name={user.userName}
-        //             />
-        //         }
-        //     </Card >
-
-        //     <UpdatePost
-        //         show={showEditPost}
-        //         id={postEditId}
-        //         handleClose={handleClose}
-        //     />
-        // </div >
     )
 }
 
