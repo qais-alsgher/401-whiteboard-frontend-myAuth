@@ -8,7 +8,7 @@ import SolveProblems from './image/SolveProblems.jpg';
 import { FaSun, FaMoon } from 'react-icons/fa';
 import { Link, Box, Container, HStack, Text, Spacer, Flex, Button, useColorMode, IconButton } from '@chakra-ui/react';
 
-function Header(props) {
+function Header() {
     const { user } = useContext(authContext);
     const { show, handleClose, handleShow, setShow } = useContext(postContext);
     const { colorMode, toggleColorMode } = useColorMode();
