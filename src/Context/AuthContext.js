@@ -1,19 +1,15 @@
-import { createContext, useReducer } from "react";
+import { createContext } from "react";
 import base64 from 'base-64';
-import { AuthReducer } from "../Reducers/authReducer";
 import { loginUser, signupUser, logoutUser } from '../actions/authAction';
-import { initialState } from '../config/initials';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const authContext = createContext();
 
-
 const AuthContextProvider = (props) => {
-    const [user, dispash] = useReducer(AuthReducer, initialState);
-
+    const despatch = useDispatch();
+    const user = useSelector(state => state.auth);
     const handleLogin = async (e) => {
         e.preventDefault();
-        // setShowInvalid(false);
-        console.log(e.target.email.value);
         const data = {
             email: e.target.email.value,
             password: e.target.password.value
@@ -21,13 +17,13 @@ const AuthContextProvider = (props) => {
 
         const encodedHeader = base64.encode(`${data.email}:${data.password}`);
 
-        loginUser(dispash, encodedHeader);
+        loginUser(despatch, encodedHeader);
     }
 
     // logout when logout remove token and and change state login 
     const handleLogOut = () => {
 
-        logoutUser(dispash);
+        logoutUser(despatch);
     }
 
 
@@ -41,7 +37,7 @@ const AuthContextProvider = (props) => {
             role: e.target.role.value
         }
 
-        signupUser(dispash, data);
+        signupUser(despatch, data);
 
     }
 
@@ -60,6 +56,7 @@ const AuthContextProvider = (props) => {
 
 
     const value = { user, handleLogin, handleLogOut, handSignup, canDo };
+
 
     return (
         <authContext.Provider value={value}>
