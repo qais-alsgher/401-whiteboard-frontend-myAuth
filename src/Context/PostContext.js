@@ -2,23 +2,24 @@ import { createContext, useState, useContext } from 'react';
 import axios from 'axios';
 import { authContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPostAndComments } from '../actions/postCommentsAction';
 
 export const postContext = createContext();
 
 const PostContextProvider = (props) => {
-
     const { user } = useContext(authContext);
 
-    const [postsAndComment, setPostsAndComment] = useState([]);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-
+    const dispatch = useDispatch();
+    const postsAndComment = useSelector(state => state.post.postAndCommentsData);
 
     const getPostComment = async () => {
-        const allPostsAndComment = await axios.get(`https://post-my-auth.herokuapp.com/PostComment`);
-        setPostsAndComment(allPostsAndComment.data);
+
+        getPostAndComments(dispatch);
+
     };
 
     const handleDelete = async (id) => {
@@ -52,8 +53,6 @@ const PostContextProvider = (props) => {
     const handleCreatePost = async (e) => {
         e.preventDefault();
 
-        // const id = cookies.load('userId');
-        // const token = cookies.load('token');
 
         const nullValue = undefined;
         const newPost = {
@@ -78,7 +77,6 @@ const PostContextProvider = (props) => {
                 '',
                 'success'
             )
-
         }).catch(e => {
             console.log(e.message || e);
         })
