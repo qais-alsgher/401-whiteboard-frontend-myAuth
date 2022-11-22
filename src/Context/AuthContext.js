@@ -8,6 +8,7 @@ export const authContext = createContext();
 const AuthContextProvider = (props) => {
     const despatch = useDispatch();
     const user = useSelector(state => state.auth);
+
     const handleLogin = async (e) => {
         e.preventDefault();
         const data = {

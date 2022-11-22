@@ -8,13 +8,12 @@ export const loginUser = async (dispatch, payload) => {
                 Authorization: `Basic ${payload}`
             }
         }).then(res => {
-            console.log(res.data);
+            
             dispatch(loginSuccess(res.data));
             localStorage.setItem('curentUser', JSON.stringify(res.data));
             localStorage.setItem('token', res.data.token);
 
         }).catch(err => {
-            console.log(err.response.data);
             dispatch(loginFailed({ errMes: err.response.data }));
         })
 

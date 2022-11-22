@@ -16,8 +16,7 @@ const postAndCommentsSlice = createSlice({
         getPostAndCommentsSuccess(state, action) {
             state.postAndCommentsLoading = false;
             state.postAndCommentsData = action.payload;
-            // console.log(action.payload);
-            console.log(state.postAndCommentsData);
+
         },
         getPostAndCommentsFailed(state, action) {
             state.postAndCommentsLoading = false;
